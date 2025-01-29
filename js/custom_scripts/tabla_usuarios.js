@@ -2,7 +2,7 @@ $(document).ready(function () {
   // Eliminar el mensaje "Sin datos." en la tabla.
   $("#tablaUsuarios").empty();
 
-  // Cargar los datos de usuario en la tabla con una solicitud Ajax GET.
+  // Cargar los datos de usuario en la tabla con una solicitud ajax GET.
   jQuery.ajax({
     url: "./php/peticion_obtener_usuarios.php",
     type: "GET",
@@ -17,7 +17,7 @@ $(document).ready(function () {
             `<td>${element.apellidos}</td>` +
             `<td>${element.telefono}</td>` +
             `<td>${element.correo}</td>` +
-            `<td><button class="btn btn-primary" id="${element.id}" onClick="abrirModalEditarUsuario(${element.id})">Editar</button><button class="btn btn-danger" id="${element.id}" onClick="eliminarUsuario(${element.id})">Eliminar</button></td>` +
+            `<td><button class="btn btn-primary" onClick="abrirModalEditarUsuario(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarUsuario(${element.id})">Eliminar</button></td>` +
             `</tr>`
         );
       });
@@ -32,7 +32,7 @@ $(document).ready(function () {
     },
   });
 
-  // Responder al submit del formulario editar usuarios con un ajax POST.
+  // Responder al submit del formulario editar usuario con un ajax POST.
   $("#formularioEditarUsuario").submit(function (e) {
     e.preventDefault();
     let datos = new FormData(this);
@@ -114,7 +114,7 @@ function abrirModalEditarUsuario(id) {
       data.forEach((element) => {
         $("#formularioEditarUsuario").append(
           `<div class="d.none">` +
-            `<input type="hidden" class="form-control" id="hiddenIdUser" name="hiddenIdUser" value="${element.id}"/>` +
+            `<input type="hidden" class="form-control" id="idOculto" name="idOculto" value="${element.id}"/>` +
             `</div>` +
             `<div class="mb-3">` +
             `<label for="nombre" class="form-label">Nombre</label>` +
@@ -178,7 +178,6 @@ function eliminarUsuario(id) {
               confirmButtonText: 'Entendido'
             }).then((result) => {
               if (result.isConfirmed) {
-                $("#modalEliminarUsuario").modal("hide");
                 location.reload();
               }
             });
