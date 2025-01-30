@@ -17,5 +17,13 @@ class EndPoints {
     static $actualizarCliente = "cliente/actualizar_cliente/"; // PUT
     static $eliminarCliente = "cliente/eliminar_cliente/"; // DELETE
     ### Fin Clientes ###
+
+    ### Mensajes ###
+    static $crearMensaje = "mensaje/crear_mensaje/"; // POST
+    static $obtenerMensajes = "mensaje/obtener_mensajes/"; // GET
+    static $obtenerMensaje = "mensaje/obtener_mensaje/"; // GET
+    static $actualizarMensaje = "mensaje/actualizar_mensaje/"; // PUT
+    static $eliminarMensaje = "mensaje/eliminar_mensaje/"; // DELETE
+    ### Fin Mensajes ###
 }
 ?>

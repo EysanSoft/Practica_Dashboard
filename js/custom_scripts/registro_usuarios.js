@@ -16,19 +16,17 @@ $(document).ready(function () {
         processData: false,
         contentType: false,
         beforeSend: function () {
-          $("#submit").prop("disabled", true);
-          $(".submitRegistrarUsuario").empty();
-          $(".submitRegistrarUsuario").append(`
+          $("#submitRegistrarUsuario").prop("disabled", true);
+          $("#submitRegistrarUsuario").empty();
+          $("#submitRegistrarUsuario").append(`
               <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
               <span role="status">Registrandote...</span>
             `);
         },
         success: function (response) {
-          // Botón submit con spinner.
-          $("#submit").prop("disabled", false);
-          $(".submitRegistrarUsuario").empty();
-          $(".submitRegistrarUsuario").append("Registrarte");
-          // Mostrar Alert sweetalert2
+          $("#submitRegistrarUsuario").prop("disabled", false);
+          $("#submitRegistrarUsuario").empty();
+          $("#submitRegistrarUsuario").append("Registrarte");
           if (response.status == true) {
             Swal.fire({
               title: "¡Registro Exitoso!",
@@ -51,6 +49,9 @@ $(document).ready(function () {
           }
         },
         error: function (error) {
+          $("#submitRegistrarUsuario").prop("disabled", false);
+          $("#submitRegistrarUsuario").empty();
+          $("#submitRegistrarUsuario").append("Registrarte");
           Swal.fire({
             title: "Ha ocurrido un error técnico...",
             html:
