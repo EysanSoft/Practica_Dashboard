@@ -36,31 +36,38 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
         $url = EndPoints::$apiUrl . EndPoints::$crearUsuario;
     
         include "shared/curl_opts/post_opt.php";
-    
+
+        // Obtener el código de respuesta de la petición.
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
         if (curl_errno($ch)) {
             throw new Exception(curl_error($ch));
-            $response = ["status" => $status, "message" => "Ha ocurrido un error con el servidor, intentelo más tarde."];
+            $customResponse = ["status" => $status, "message" => "Ha ocurrido un error con el servidor, intentelo más tarde."];
             curl_close($ch);
-            echo json_encode($response);
+            echo json_encode($customResponse);
+        }
+        elseif ($httpCode == 401) {
+            $customResponse = ["status" => $status, "message" => "No tienes permiso."];
+            curl_close($ch);
+            echo json_encode($customResponse);
         }
         else {
             $status = true;
             $response = json_decode($response);
-
             // Validar si se obtuvo una excepción de parte de la API.
             if (isset($response->errors)) {
                 $status = false;
-                if(isset($response->errors->Email[0])) {
-                    $message = $response->errors->Email[0];
+                if (isset($response->errors->Correo[0])) {
+                    $message = $response->errors->Correo[0];
+                } 
+                elseif (isset($response->errors->Telefono[0])) {
+                    $message = $response->errors->Telefono[0];
                 }
-                elseif(isset($response->errors->Phone[0])) {
-                    $message = $response->errors->Phone[0];
+                elseif (isset($response->errors->Nombre[0])) {
+                    $message = $response->errors->Nombre[0];
                 }
-                elseif(isset($response->errors->Name[0])) {
-                    $message = $response->errors->Name[0];
-                }
-                elseif(isset($response->errors->LastName[0])) {
-                    $message = $response->errors->LastName[0];
+                elseif (isset($response->errors->Apellidos[0])) {
+                    $message = $response->errors->Apellidos[0];
                 }
                 else {
                     $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";

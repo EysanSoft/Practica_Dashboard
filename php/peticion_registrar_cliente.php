@@ -34,15 +34,19 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
         // Validar si se obtuvo una excepción de parte de la API.
         if (isset($response->errors)) {
             $status = false;
-            if (isset($response->errors->Email[0])) {
-                $message = $response->errors->Email[0];
-            } elseif (isset($response->errors->Phone[0])) {
-                $message = $response->errors->Phone[0];
-            } elseif (isset($response->errors->Name[0])) {
-                $message = $response->errors->Name[0];
-            } elseif (isset($response->errors->LastName[0])) {
-                $message = $response->errors->LastName[0];
-            } else {
+            if (isset($response->errors->Correo[0])) {
+                $message = $response->errors->Correo[0];
+            } 
+            elseif (isset($response->errors->Telefono[0])) {
+                $message = $response->errors->Telefono[0];
+            }
+            elseif (isset($response->errors->Nombre[0])) {
+                $message = $response->errors->Nombre[0];
+            }
+            elseif (isset($response->errors->Apellidos[0])) {
+                $message = $response->errors->Apellidos[0];
+            }
+            else {
                 $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";
             }
             $customResponse = ["status" => $status, "message" => $message];

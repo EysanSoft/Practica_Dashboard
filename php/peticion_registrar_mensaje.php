@@ -38,7 +38,8 @@ else {
             $response = ["status" => $status, "message" => "Ha ocurrido un error con el servidor, intentelo más tarde."];
             curl_close($ch);
             echo json_encode($response);
-        } else {
+        }
+        else {
             $status = true;
             $response = json_decode($response);
 
@@ -47,15 +48,18 @@ else {
                 $status = false;
                 if (isset($response->errors->Cuerpo[0])) {
                     $message = $response->errors->Cuerpo[0];
-                } elseif (isset($response->errors->Tipo[0])) {
+                }
+                elseif (isset($response->errors->Tipo[0])) {
                     $message = $response->errors->Tipo[0];
-                } else {
+                }
+                else {
                     $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";
                 }
                 $customResponse = ["status" => $status, "message" => $message];
                 curl_close($ch);
                 echo json_encode($customResponse);
-            } else {
+            }
+            else {
                 $customResponse = ["status" => $status, "message" => "Mensaje Escrito"];
                 curl_close($ch);
                 echo json_encode($customResponse);
