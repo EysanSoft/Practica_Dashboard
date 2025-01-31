@@ -14,9 +14,9 @@ $(document).ready(function () {
         $("#submitRegistrarCliente").prop("disabled", true);
         $("#submitRegistrarCliente").empty();
         $("#submitRegistrarCliente").append(`
-                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                <span role="status">Registrando...</span>
-              `);
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span role="status">Registrando...</span>
+        `);
       },
       success: function (response) {
         $("#submitRegistrarCliente").prop("disabled", false);

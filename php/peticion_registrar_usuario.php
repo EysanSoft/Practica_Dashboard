@@ -54,6 +54,7 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
         else {
             $status = true;
             $response = json_decode($response);
+            
             // Validar si se obtuvo una excepción de parte de la API.
             if (isset($response->errors)) {
                 $status = false;

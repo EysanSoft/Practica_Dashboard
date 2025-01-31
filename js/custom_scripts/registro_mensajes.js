@@ -7,13 +7,23 @@ $(document).ready(function () {
     type: "GET",
     dataType: "JSON",
     success: function (result) {
-      let data = result.data;
-      $("#cliente").append(`<option value="D" selected>Elige un cliente</option>`);
-      data.forEach((element) => {
-        $("#cliente").append(
-          `<option value="${element.id}">${element.nombre} ${element.apellidos}</option>`
-        );
-      });
+      if (typeof result.message === "undefined" && result.data) {
+        let data = result.data;
+        $("#cliente").append(`<option value="D" selected>Elige un cliente</option>`);
+        data.forEach((element) => {
+          $("#cliente").append(
+            `<option value="${element.id}">${element.nombre} ${element.apellidos}</option>`
+          );
+        });
+      }
+      else {
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
     },
     error: function (error) {
       Swal.fire({

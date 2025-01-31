@@ -6,21 +6,31 @@ $(document).ready(function () {
     type: "GET",
     dataType: "JSON",
     success: function (result) {
+      if (typeof result.message === "undefined" && result.data) {
         let data = result.data;
         data.forEach((element) => {
-        let fechaYHora = formatearFecha(element.creado);
-        $("#tablaMensajes").append(
-          `<tr>` +
-            `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
-            `<td class='align-middle'>${element.cuerpo}</td>` +
-            `<td class='text-center align-middle'>${element.tipo}</td>` +
-            `<td class='text-center align-middle'>${element.status}</td>` +
-            `<td class='text-center align-middle'>${element.cliente}</td>` +
-            `<td class='text-center align-middle'>${fechaYHora}</td>` +
-            `<td class='text-center align-middle'><button class="btn btn-danger" onClick="eliminarMensaje(${element.id})">Eliminar</button></td>` +
-          `</tr>`
-        );
-      });
+          let fechaYHora = formatearFecha(element.creado);
+          $("#tablaMensajes").append(
+            `<tr>` +
+              `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
+              `<td class='align-middle'>${element.cuerpo}</td>` +
+              `<td class='text-center align-middle'>${element.tipo}</td>` +
+              `<td class='text-center align-middle'>${element.status}</td>` +
+              `<td class='text-center align-middle'>${element.cliente}</td>` +
+              `<td class='text-center align-middle'>${fechaYHora}</td>` +
+              `<td class='text-center align-middle'><button class="btn btn-danger" onClick="eliminarMensaje(${element.id})">Eliminar</button></td>` +
+              `</tr>`
+          );
+        });
+      }
+      else {
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
     },
     error: function (error) {
       Swal.fire({
@@ -34,7 +44,7 @@ $(document).ready(function () {
 });
 
 function formatearFecha(fechaOriginal) {
-  let fecha = new Date(fechaOriginal); 
+  let fecha = new Date(fechaOriginal);
   let d = fecha.getDate();
   let m = fecha.getMonth() + 1;
   let a = fecha.getFullYear();

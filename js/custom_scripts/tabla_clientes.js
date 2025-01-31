@@ -8,19 +8,29 @@ $(document).ready(function () {
     type: "GET",
     dataType: "JSON",
     success: function (result) {
-      let data = result.data;
-      data.forEach((element) => {
-        $("#tablaClientes").append(
-          `<tr>` +
-            `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
-            `<td class='text-center align-middle'>${element.nombre}</td>` +
-            `<td class='text-center align-middle'>${element.apellidos}</td>` +
-            `<td class='text-center align-middle'>${element.correo}</td>` +
-            `<td class='text-center align-middle'>${element.telefono}</td>` +
-            `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
-          `</tr>`
-        );
-      });
+      if (typeof result.message === 'undefined' && result.data) {
+        let data = result.data;
+        data.forEach((element) => {
+          $("#tablaClientes").append(
+            `<tr>` +
+              `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
+              `<td class='text-center align-middle'>${element.nombre}</td>` +
+              `<td class='text-center align-middle'>${element.apellidos}</td>` +
+              `<td class='text-center align-middle'>${element.correo}</td>` +
+              `<td class='text-center align-middle'>${element.telefono}</td>` +
+              `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
+            `</tr>`
+          );
+        });
+      }
+      else {
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
     },
     error: function (error) {
       Swal.fire({
@@ -102,34 +112,44 @@ function abrirModalEditarCliente(id) {
       postID: id,
     },
     success: function (result) {
-      let data = result.data;
-      data.forEach((element) => {
-        $("#formularioEditarCliente").append(
-          `<div class="d.none">` +
-            `<input type="hidden" class="form-control" id="idOculto" name="idOculto" value="${element.id}"/>` +
-            `</div>` +
-            `<div class="mb-3">` +
-            `<label for="nombre" class="form-label">Nombre</label>` +
-            `<input type="text" class="form-control" id="nombre" name="nombre" maxlength="15" value="${element.nombre}"/>` +
-            `</div>` +
-            `<div class="mb-3">` +
-            `<label for="apellido" class="form-label">Apellido</label>` +
-            `<input type="text" class="form-control" id="apellido" name="apellido" maxlength="30" value="${element.apellidos}"/>` +
-            `</div>` +
-            `<div class="mb-4">` +
-            `<label for="correo" class="form-label">Correo</label>` +
-            `<input type="email" class="form-control" id="correo" name="correo" value="${element.correo}"/>` +
-            `</div>` +
-            `<div class="mb-3">` +
-            `<label for="telefono" class="form-label">Telefono</label>` +
-            `<input type="tel" class="form-control" id="telefono" name="telefono" value="${element.telefono}"/>` +
-            `</div>` +
-            `<div class="mb-3">` +
-            `<button class="btn btn-primary submitEditarCliente" id="submit">Guardar Cambios</button>` +
-            `</div>`
-        );
-        $("#modalEditarCliente").modal("show");
-      });
+      if (typeof result.message === 'undefined' && result.data) {
+        let data = result.data;
+        data.forEach((element) => {
+          $("#formularioEditarCliente").append(
+            `<div class="d.none">` +
+              `<input type="hidden" class="form-control" id="idOculto" name="idOculto" value="${element.id}"/>` +
+              `</div>` +
+              `<div class="mb-3">` +
+              `<label for="nombre" class="form-label">Nombre</label>` +
+              `<input type="text" class="form-control" id="nombre" name="nombre" maxlength="15" value="${element.nombre}"/>` +
+              `</div>` +
+              `<div class="mb-3">` +
+              `<label for="apellido" class="form-label">Apellido</label>` +
+              `<input type="text" class="form-control" id="apellido" name="apellido" maxlength="30" value="${element.apellidos}"/>` +
+              `</div>` +
+              `<div class="mb-4">` +
+              `<label for="correo" class="form-label">Correo</label>` +
+              `<input type="email" class="form-control" id="correo" name="correo" value="${element.correo}"/>` +
+              `</div>` +
+              `<div class="mb-3">` +
+              `<label for="telefono" class="form-label">Telefono</label>` +
+              `<input type="tel" class="form-control" id="telefono" name="telefono" value="${element.telefono}"/>` +
+              `</div>` +
+              `<div class="mb-3">` +
+              `<button class="btn btn-primary submitEditarCliente" id="submit">Guardar Cambios</button>` +
+              `</div>`
+          );
+          $("#modalEditarCliente").modal("show");
+        });
+      }
+      else {
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
     },
     error: function (error) {
       Swal.fire({

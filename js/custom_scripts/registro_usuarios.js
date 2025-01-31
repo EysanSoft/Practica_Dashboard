@@ -21,7 +21,7 @@ $(document).ready(function () {
           $("#submitRegistrarUsuario").append(`
               <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
               <span role="status">Registrandote...</span>
-            `);
+          `);
         },
         success: function (response) {
           $("#submitRegistrarUsuario").prop("disabled", false);
