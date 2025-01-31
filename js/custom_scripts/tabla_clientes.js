@@ -12,13 +12,13 @@ $(document).ready(function () {
       data.forEach((element) => {
         $("#tablaClientes").append(
           `<tr>` +
-            `<th scope'row'>${element.id}</th>` +
-            `<td>${element.nombre}</td>` +
-            `<td>${element.apellidos}</td>` +
-            `<td>${element.correo}</td>` +
-            `<td>${element.telefono}</td>` +
-            `<td><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
-            `</tr>`
+            `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
+            `<td class='text-center align-middle'>${element.nombre}</td>` +
+            `<td class='text-center align-middle'>${element.apellidos}</td>` +
+            `<td class='text-center align-middle'>${element.correo}</td>` +
+            `<td class='text-center align-middle'>${element.telefono}</td>` +
+            `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
+          `</tr>`
         );
       });
     },
