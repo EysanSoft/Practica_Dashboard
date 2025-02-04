@@ -25,12 +25,13 @@ else {
     $response = json_decode($response);
     if ($response -> success == false) {
         curl_close($ch);
+        session_unset();
+        session_destroy();
         echo json_encode($response);
     }
     else {
-        session_start();
         $_SESSION['token'] = $response -> token;
-        $response -> token = "";
+        // $response -> token = "";
         curl_close($ch);
         echo json_encode($response);
     }
