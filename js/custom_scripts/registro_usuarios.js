@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  $("#mensajeError").hide();
-
   $("#formularioRegistrarUsuario").submit(function (e) {
     let contra_1 = $("#contra").val();
     let contra_2 = $("#conContra").val();

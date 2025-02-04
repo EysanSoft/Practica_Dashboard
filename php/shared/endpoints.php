@@ -3,6 +3,7 @@ class EndPoints {
     static $apiUrl = "https://localhost:7078/";
 
     ### Usuarios ###
+    static $iniciarSesion = "autenticar_usuario/iniciar_sesion/"; // POST
     static $crearUsuario = "usuario/crear_usuario/"; // POST
     static $obtenerUsuarios = "usuario/obtener_usuarios/"; // GET
     static $obtenerUsuario = "usuario/obtener_usuario/"; // GET
