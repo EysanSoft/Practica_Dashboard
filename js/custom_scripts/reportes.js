@@ -34,7 +34,8 @@ $(document).ready(function () {
         });
         meses[mesActual] = conteoDeTipos;
         graficaMensajesMensuales(meses);
-      } else {
+      }
+      else {
         Swal.fire({
           title: "¡Atención!",
           text: result.message,
@@ -238,8 +239,8 @@ function graficaMensajesDiarios(conteoDiario, semana) {
 
 // Función qur obtiene la semana actual.
 function obtenerSemanaActual() {
-  // Falta corregir un error de logica... De Enero a Febrero...
   let fechaActual = new Date();
+  let ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
   let meses = [
     "Enero",
     "Febrero",
@@ -256,28 +257,101 @@ function obtenerSemanaActual() {
   ];
   let mesActual = fechaActual.getMonth();
   let mesSiguiente = mesActual + 1;
-  let semanaActual = [];
+  let mesPasado = mesActual - 1;
+  let semanaActualReverso = [];
   let rangoSemanal = [];
+  let numDia = fechaActual.getDay();
+  let dia = fechaActual.getDate();
+  let diaInicial = dia;
+  entroAlSiguienteMes = false;
+  entroAlMesPasado = false;
+  // Es domingo.
+  if (numDia == 0) {
+    numDia = 7;
+  }
+  // El primer día es un lunes.
+  if (numDia == 1) {
+    let diaFechaCompleta = new Date(fechaActual.setDate(dia)).toISOString().slice(0, 10);
+    
+    rangoSemanal.push(diaFechaCompleta);
+  }
+  semanaActualReverso.push(dia);
+  // Mientras que no se llegue al día lunes, retrocedemos los días.
+  while (numDia != 1) {
+    numDia = numDia - 1;
+    // Si el dia llega a 0, se tiene que retroceder al mes anterior...
+    if(dia - 1 == 0) {
+      entroAlMesPasado = true;
+      let mesAnterior = new Date();
 
-  mesActual = meses[mesActual];
-  // if ...
-  mesSiguiente = meses[mesSiguiente];
-  for (let i = 1; i <= 7; i++) {
-    let first = fechaActual.getDate() - fechaActual.getDay() + i;
-    let dia = new Date(fechaActual.setDate(first)).getDate();
-    let diaFechaCompleta = new Date(fechaActual.setDate(first))
-      .toISOString()
-      .slice(0, 10);
+      mesAnterior.setDate(0);
+      numDia = mesAnterior.getDay();
+      dia = mesAnterior.getDate();
+      // Si el día retrocedio resulta ser un lunes, se registra la fecha de inicio con el mes anterior...
+      if (numDia == 1) {
+        let diaFechaCompleta = new Date(fechaActual.setDate(dia));
 
-    semanaActual.push(dia);
-    if (i == 1 || i == 7) {
-      rangoSemanal.push(diaFechaCompleta);
+        diaFechaCompleta.setMonth(fechaActual.getMonth() - 1);
+        diaFechaCompleta = diaFechaCompleta.toISOString().slice(0, 10);
+        rangoSemanal.push(diaFechaCompleta);
+      }
+      semanaActualReverso.push(dia);
+    }
+    // Si no, seguimos retrocediendo los días...
+    else {
+      dia = dia - 1;
+      // Si el día retrocedio resulta ser un lunes, se registra la fecha de inicio con el mes actual.
+      if (numDia == 1) {
+        // let diaFechaCompleta = new Date(fechaActual.setDate(dia)).toISOString().slice(0, 10);
+        let diaFechaCompleta = new Date(fechaActual.setDate(dia));
+
+        diaFechaCompleta.setMonth(fechaActual.getMonth() - 1);
+        diaFechaCompleta = diaFechaCompleta.toISOString().slice(0, 10);
+        rangoSemanal.push(diaFechaCompleta);
+      }
+      semanaActualReverso.push(dia);
     }
   }
-  rangoSemanal.push(mesActual);
-  rangoSemanal.push(mesSiguiente);
-  let resultados = [semanaActual, rangoSemanal];
+  // Mientras falten los 7 días de la semanas en el arreglo, agregaremos los días desde el día inicial.
+  while (semanaActualReverso.length != 7) {
+    diaInicial += 1;
+    // Si el día supera el ultimo día del mes...
+    if (diaInicial > ultimoDiaMes) {
+      // Reiniciamos el día, y avisamos que se entró al siguinte mes.
+      entroAlSiguienteMes = true;
+      diaInicial = 1;
+    }
+    semanaActualReverso.unshift(diaInicial);
+  }
+  // ¿Se entró al siguiente mes?
+  if (entroAlSiguienteMes == true) {
+    // Asignar la fecha del día final con el mes siguiente...
+    let diaFechaCompleta = new Date(fechaActual.setDate(diaInicial));
 
+    diaFechaCompleta.setMonth(fechaActual.getMonth() + 2);
+    diaFechaCompleta = diaFechaCompleta.toISOString().slice(0, 10);
+    rangoSemanal.push(diaFechaCompleta);
+  }
+  else {
+    let diaFechaCompleta = new Date(fechaActual.setDate(diaInicial)).toISOString().slice(0, 10);
+    rangoSemanal.push(diaFechaCompleta);
+  }
+  semanaActualReverso.reverse();
+  // Definir si la semana actual entró entre meses.
+  if (entroAlMesPasado == true) {
+    rangoSemanal.push(meses[mesPasado]);
+  }
+  else {
+    rangoSemanal.push(meses[mesActual]);
+  }
+  if (entroAlSiguienteMes == true) {
+    rangoSemanal.push(meses[mesSiguiente]);
+  }
+  else {
+    rangoSemanal.push(meses[mesActual]);
+  }
+  let resultados = [semanaActualReverso, rangoSemanal];
+  
   return resultados;
 }
 
