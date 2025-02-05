@@ -32,7 +32,7 @@ $(document).ready(function () {
         }
         else {
           // alert(response.token);
-          location.replace("./index.html");
+          location.replace("./index.php");
         }
       },
       error: function (error) {

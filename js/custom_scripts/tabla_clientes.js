@@ -30,6 +30,11 @@ $(document).ready(function () {
           icon: "error",
           confirmButtonText: "Entendido",
         });
+        $("#tablaClientes").append(`
+          <tr>
+            <td colspan="6"><b>Sin datos...</b></td>
+          </tr>
+        `);
       }
     },
     error: function (error) {
@@ -39,6 +44,11 @@ $(document).ready(function () {
         icon: "error",
         confirmButtonText: "Entendido",
       });
+      $("#tablaClientes").append(`
+        <tr>
+          <td colspan="6"><b>Sin datos...</b></td>
+        </tr>
+      `);
     },
   });
 

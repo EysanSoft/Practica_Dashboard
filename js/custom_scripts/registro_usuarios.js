@@ -33,7 +33,7 @@ $(document).ready(function () {
               confirmButtonText: "Entendido",
             }).then((result) => {
               if (result.isConfirmed) {
-                location.replace("./usuarios.html");
+                location.replace("./usuarios.php");
               }
             });
           }

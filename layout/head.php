@@ -6,7 +6,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 
-<title>Dashboard - Usuarios</title>
+<title>Dashboard</title>
 
 <!-- Custom fonts for this template-->
 <link
@@ -24,6 +24,7 @@
 <link href="css/sb-admin-2.min.css" rel="stylesheet" />
 
 <?php
+session_start();
 if (!isset($_SESSION["token"])) {
     header("Location: login.html");
     exit;

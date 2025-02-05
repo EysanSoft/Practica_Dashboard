@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a
         class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="index.html">
+        href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -15,7 +15,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -28,7 +28,7 @@
     <div class="sidebar-heading">Modelos</div>
 
     <!-- Nav Item - Modelos Menu -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a
             class="nav-link collapsed"
             href="#"
@@ -41,13 +41,13 @@
         </a>
         <div
             id="collapseTwo"
-            class="collapse show"
+            class="collapse"
             aria-labelledby="headingTwo"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Entidades:</h6>
-                <a class="collapse-item active" href="usuarios.html">Usuarios</a>
-                <a class="collapse-item" href="clientes.html">Clientes</a>
+                <a class="collapse-item" href="usuarios.php">Usuarios</a>
+                <a class="collapse-item" href="clientes.php">Clientes</a>
             </div>
         </div>
     </li>
@@ -60,7 +60,7 @@
 
     <!-- Nav Item - Mensajes -->
     <li class="nav-item">
-        <a class="nav-link" href="mensajes.html">
+        <a class="nav-link" href="mensajes.php">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Mensajes</span>
         </a>

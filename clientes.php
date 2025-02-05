@@ -29,30 +29,30 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
+          <h1 class="h3 mb-4 text-gray-800">Clientes</h1>
           <button
             class="btn btn-success"
-            onclick="window.location='registro_usuarios.php';">
-            Registrar un Usuario
+            onclick="window.location='registro_clientes.php';">
+            Registrar un Cliente
           </button>
 
-          <!-- ########## Tabla Usuarios ########## -->
+          <!-- ########## Tabla Clientes ########## -->
           <div class="row my-2 justify-content-center">
             <div class="col-12">
               <div class="table-responsive">
                 <table
-                  class="table table-primary table-striped table-bordered table-hover">
+                  class="table table-success table-striped table-bordered table-hover">
                   <thead>
                     <tr>
                       <th scope="col" class="col-1 text-center">#</th>
                       <th scope="col" class="text-center">Nombre</th>
                       <th scope="col" class="text-center">Apellidos</th>
-                      <th scope="col" class="text-center">Teléfono</th>
                       <th scope="col" class="text-center">Correo</th>
+                      <th scope="col" class="text-center">Teléfono</th>
                       <th scope="col" class="col-2 text-center">Acción</th>
                     </tr>
                   </thead>
-                  <tbody id="tablaUsuarios">
+                  <tbody id="tablaClientes">
                     <tr>
                       <td colspan="6"><b>Sin datos...</b></td>
                     </tr>
@@ -80,10 +80,10 @@
   include "./layout/modal_logout.php";
   ?>
   <!-- End of Logout Modal-->
-  <!-- Modal Editar Usuario -->
+  <!-- Modal Editar Cliente -->
   <div
     class="modal fade"
-    id="modalEditarUsuario"
+    id="modalEditarCliente"
     data-bs-backdrop="static"
     data-bs-keyboard="false"
     tabindex="-1"
@@ -92,7 +92,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <b>Editar Usuario</b>
+          <b>Editar Cliente</b>
           <!--
               Por alguna razon, el botón no funciona.
               tuve que implementarle un onclick para forzar el cierre.
@@ -102,15 +102,15 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
-            onclick="$('#modalEditarUsuario').modal('hide');"></button>
+            onclick="$('#modalEditarCliente').modal('hide');"></button>
         </div>
         <div class="modal-body">
           <div class="row mx-3 mt-2 justify-content-center">
             <div class="col-12">
               <form
-                action="./php/peticion_editar_usuario.php"
+                action="./php/peticion_editar_cliente.php"
                 class="form"
-                id="formularioEditarUsuario"
+                id="formularioEditarCliente"
                 method="POST">
                 <!-- Datos... -->
               </form>
@@ -120,13 +120,13 @@
       </div>
     </div>
   </div>
-  <!-- End of Modal Editar Usuario -->
+  <!-- End of Modal Editar Cliente -->
   <!-- Scripts -->
   <?php
   include "./layout/scripts.php";
   ?>
   <!-- End of Scripts -->
-  <script src="js/custom_scripts/tabla_usuarios.js"></script>
+  <script src="js/custom_scripts/tabla_clientes.js"></script>
 </body>
 
 </html>
