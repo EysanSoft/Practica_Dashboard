@@ -1,6 +1,11 @@
 <?php
+require_once '../vendor/autoload.php';
 include "shared/endpoints.php";
+use Twilio\Rest\Client;
+$dotenv = Dotenv\Dotenv::createImmutable('../');
+$dotenv->load();
 $status = false;
+
 if ($_POST["tipo-select"] == "D") {
     $response = ["status" => $status, "message" => "Por favor seleccione el tipo de mensaje"];
     echo json_encode($response);
@@ -21,7 +26,6 @@ else {
         $tipo = str_replace('-', '', $tipo);
         $tipo = strval($tipo);
     }
-
     if (empty(trim($cuerpo)) !== true && empty(trim($tipo)) !== true) {
         $data = array(
             'cuerpo' => $cuerpo,
@@ -68,9 +72,27 @@ else {
                 echo json_encode($customResponse);
             }
             else {
-                $customResponse = ["status" => $status, "message" => "Mensaje Escrito"];
-                curl_close($ch);
-                echo json_encode($customResponse);
+                if ($_POST["tipo-select"] == "T") {
+                    $twilioResponse = enviarMsgTxt($tipo, $cuerpo);
+                    $twilioResponse = json_decode($twilioResponse);
+
+                    if (isset($twilioResponse) && $twilioResponse->error_code === null) {
+                        $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de SMS"];
+                        curl_close($ch);
+                        echo json_encode($customResponse);
+                    }
+                    else {
+                        $status = false;
+                        $customResponse = ["status" => $status, "message" => "El mensaje fue enviado, pero ocurrio un error en el envio a través de SMS..."];
+                        curl_close($ch);
+                        echo json_encode($customResponse);
+                    }
+                }
+                else {
+                    $customResponse = ["status" => $status, "message" => "Mensaje Enviado"];
+                    curl_close($ch);
+                    echo json_encode($customResponse);
+                }
             }
         }
     }
@@ -79,4 +101,23 @@ else {
         echo json_encode($response);
         exit();
     }
+}
+
+function enviarMsgTxt($numeroCliente, $cuerpoMsg) {
+    $sid    = $_ENV['SID'];
+    $token  = $_ENV['TOKEN'];
+    $numeroTwilio = $_ENV['TWILIO_TEL'];
+    // var_dump($sid);
+    // var_dump($token);
+    // var_dump($_ENV['TWILIO_TEL']);
+    $twilio = new Client($sid, $token);
+    $message = $twilio->messages
+        ->create(
+            "+52$numeroCliente",
+            array(
+                "from" => $numeroTwilio,
+                "body" => $cuerpoMsg
+            )
+        );
+    return ($message->sid);
 }
