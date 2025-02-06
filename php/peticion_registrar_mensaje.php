@@ -22,7 +22,7 @@ else {
     $cuerpo = strip_tags($_POST["cuerpo"]);
     $tipo = strip_tags($_POST["tipo"]);
 
-    if ($_POST["tipo-select"] == "T") {
+    if ($_POST["tipo-select"] == "T" || $_POST["tipo-select"] == "W") {
         // Validar telefono.
         $tipo = str_replace(' ', '', $tipo);
         $tipo = str_replace('-', '', $tipo);
@@ -62,9 +62,11 @@ else {
                 $status = false;
                 if (isset($response->errors->Cuerpo[0])) {
                     $message = $response->errors->Cuerpo[0];
-                } elseif (isset($response->errors->Tipo[0])) {
+                }
+                elseif (isset($response->errors->Tipo[0])) {
                     $message = $response->errors->Tipo[0];
-                } else {
+                }
+                else {
                     $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";
                 }
                 $customResponse = ["status" => $status, "message" => $message];
@@ -74,7 +76,7 @@ else {
             else {
                 if ($_POST["tipo-select"] == "T") {
                     try {
-                        enviarMsgTxt($tipo, $cuerpo);
+                        enviarSMS($tipo, $cuerpo);
                         $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de SMS"];
                         curl_close($ch);
                         echo json_encode($customResponse);
@@ -84,6 +86,24 @@ else {
                         $customResponse = ["status" => $status, "message" => "El mensaje fue enviado, pero ocurrio un error en el envio a través de SMS..."];
                         curl_close($ch);
                         // Aqui seria bueno hacer una petición PUT para cambiar el estado del mensaje.
+                        echo json_encode($customResponse);
+                    }
+                }
+                elseif ($_POST["tipo-select"] == "W") {
+                    try {
+                        enviarWhatsApp($tipo, $cuerpo);
+                        $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de WhatsApp"];
+                        curl_close($ch);
+                        echo json_encode($customResponse);
+                    }
+                    /*
+                        Por alguna razón, Twilio no marca excepción cuando el numero del cliente no esté verificado.
+                        Posiblemente se tenga que evaluar los contenidos de la respuesta.
+                    */
+                    catch (Exception $e) {
+                        $status = false;
+                        $customResponse = ["status" => $status, "message" => "El mensaje fue enviado, pero ocurrio un error en el envio a través de WhatsApp..."];
+                        curl_close($ch);
                         echo json_encode($customResponse);
                     }
                 }
@@ -102,7 +122,7 @@ else {
     }
 }
 
-function enviarMsgTxt($numeroCliente, $cuerpoMsg) {
+function enviarSMS($numeroCliente, $cuerpoMsg) {
     $sid    = $_ENV['SID'];
     $token  = $_ENV['TOKEN'];
     $numeroTwilio = $_ENV['TWILIO_TEL'];
@@ -112,6 +132,21 @@ function enviarMsgTxt($numeroCliente, $cuerpoMsg) {
             "+52$numeroCliente",
             array(
                 "from" => $numeroTwilio,
+                "body" => $cuerpoMsg
+            )
+        );
+}
+
+function enviarWhatsApp($numeroCliente, $cuerpoMsg) {
+    $sid    = $_ENV['SID'];
+    $token  = $_ENV['TOKEN'];
+    $numeroWhatsAppTwilio = $_ENV['WHATSAPP_TWILIO_TEL'];
+    $twilio = new Client($sid, $token);
+    $twilio->messages
+        ->create(
+            "whatsapp:+521$numeroCliente",
+            array(
+                "from" => "whatsapp:$numeroWhatsAppTwilio",
                 "body" => $cuerpoMsg
             )
         );

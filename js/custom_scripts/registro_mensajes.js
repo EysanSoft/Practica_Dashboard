@@ -47,7 +47,7 @@ $(document).ready(function () {
       );
       $("#tipo").prop("disabled", false);
     }
-    if ($(this).val() == "T") {
+    if ($(this).val() == "T" || $(this).val() == "W") {
       $("#tipo-div-dinamico").empty();
       $("#tipo-div-dinamico").append(
         `<label for="tipo" class="form-label">Referencia (Teléfono)</label>`

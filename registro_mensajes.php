@@ -61,7 +61,8 @@
                       name="tipo-select">
                       <option value="D" selected>Elige una Opción</option>
                       <option value="C">Correo</option>
-                      <option value="T">Teléfono</option>
+                      <option value="T">Teléfono (SMS)</option>
+                      <option value="W">Teléfono (WhatsApp)</option>
                     </select>
                   </div>
                   <div class="col-5" id="tipo-div-dinamico">
