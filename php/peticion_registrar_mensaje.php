@@ -1,7 +1,9 @@
 <?php
 require_once '../vendor/autoload.php';
 include "shared/endpoints.php";
+
 use Twilio\Rest\Client;
+
 $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv->load();
 $status = false;
@@ -60,11 +62,9 @@ else {
                 $status = false;
                 if (isset($response->errors->Cuerpo[0])) {
                     $message = $response->errors->Cuerpo[0];
-                }
-                elseif (isset($response->errors->Tipo[0])) {
+                } elseif (isset($response->errors->Tipo[0])) {
                     $message = $response->errors->Tipo[0];
-                }
-                else {
+                } else {
                     $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";
                 }
                 $customResponse = ["status" => $status, "message" => $message];
@@ -73,18 +73,17 @@ else {
             }
             else {
                 if ($_POST["tipo-select"] == "T") {
-                    $twilioResponse = enviarMsgTxt($tipo, $cuerpo);
-                    $twilioResponse = json_decode($twilioResponse);
-
-                    if (isset($twilioResponse) && $twilioResponse->error_code === null) {
+                    try {
+                        enviarMsgTxt($tipo, $cuerpo);
                         $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de SMS"];
                         curl_close($ch);
                         echo json_encode($customResponse);
                     }
-                    else {
+                    catch (Exception $e) {
                         $status = false;
                         $customResponse = ["status" => $status, "message" => "El mensaje fue enviado, pero ocurrio un error en el envio a través de SMS..."];
                         curl_close($ch);
+                        // Aqui seria bueno hacer una petición PUT para cambiar el estado del mensaje.
                         echo json_encode($customResponse);
                     }
                 }
@@ -107,11 +106,8 @@ function enviarMsgTxt($numeroCliente, $cuerpoMsg) {
     $sid    = $_ENV['SID'];
     $token  = $_ENV['TOKEN'];
     $numeroTwilio = $_ENV['TWILIO_TEL'];
-    // var_dump($sid);
-    // var_dump($token);
-    // var_dump($_ENV['TWILIO_TEL']);
     $twilio = new Client($sid, $token);
-    $message = $twilio->messages
+    $twilio->messages
         ->create(
             "+52$numeroCliente",
             array(
@@ -119,5 +115,4 @@ function enviarMsgTxt($numeroCliente, $cuerpoMsg) {
                 "body" => $cuerpoMsg
             )
         );
-    return ($message->sid);
 }
