@@ -36,29 +36,25 @@ $(document).ready(function () {
   });
 
   // Cambiar el tipo de input según la opción seleccionada en el select.
-  $("#tipo-select").on("change", function () {
+  $("#tipo").on("change", function () {
     if ($(this).val() == "C") {
-      $("#tipo-div-dinamico").empty();
-      $("#tipo-div-dinamico").append(
-        `<label for="tipo" class="form-label">Referencia (Correo)</label>`
+      $("#contacto-div-dinamico").empty();
+      $("#contacto-div-dinamico").append(
+        `<label for="contacto" class="form-label">Referencia (Correo)</label>` +
+        `<input type="email" class="form-control" id="contacto" name="contacto" maxlength="30" required />`
       );
-      $("#tipo-div-dinamico").append(
-        `<input type="email" class="form-control" id="tipo" name="tipo" maxlength="30" required />`
-      );
-      $("#tipo").prop("disabled", false);
+      $("#contacto").prop("disabled", false);
     }
     if ($(this).val() == "T" || $(this).val() == "W") {
-      $("#tipo-div-dinamico").empty();
-      $("#tipo-div-dinamico").append(
-        `<label for="tipo" class="form-label">Referencia (Teléfono)</label>`
+      $("#contacto-div-dinamico").empty();
+      $("#contacto-div-dinamico").append(
+        `<label for="contacto" class="form-label">Referencia (Teléfono)</label>` +
+        `<input type="tel" class="form-control" id="contacto" name="contacto" maxlength="20" required />`
       );
-      $("#tipo-div-dinamico").append(
-        `<input type="tel" class="form-control" id="tipo" name="tipo" maxlength="20" required />`
-      );
-      $("#tipo").prop("disabled", false);
+      $("#contacto").prop("disabled", false);
     }
     if ($(this).val() == "D") {
-      $("#tipo").prop("disabled", true);
+      $("#contacto").prop("disabled", true);
     }
   });
 

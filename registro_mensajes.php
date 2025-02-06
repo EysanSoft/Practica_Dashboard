@@ -54,24 +54,24 @@
 
                 <div class="row mb-4">
                   <div class="col-3">
-                    <label for="tipo-select" class="form-label">Tipo de Mensaje</label>
+                    <label for="tipo" class="form-label">Tipo de Mensaje</label>
                     <select
                       class="form-control"
-                      id="tipo-select"
-                      name="tipo-select">
+                      id="tipo"
+                      name="tipo">
                       <option value="D" selected>Elige una Opción</option>
                       <option value="C">Correo</option>
                       <option value="T">Teléfono (SMS)</option>
                       <option value="W">Teléfono (WhatsApp)</option>
                     </select>
                   </div>
-                  <div class="col-5" id="tipo-div-dinamico">
-                    <label for="tipo" class="form-label">Referencia</label>
+                  <div class="col-5" id="contacto-div-dinamico">
+                    <label for="contacto" class="form-label">Contacto</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="tipo"
-                      name="tipo"
+                      id="contacto"
+                      name="contacto"
                       disabled />
                   </div>
                 </div>

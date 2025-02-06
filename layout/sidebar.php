@@ -66,11 +66,11 @@
         </a>
     </li>
 
-    <!-- Nav Item - ? -->
+    <!-- Nav Item - Reportes -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="reportes.php">
             <i class="fas fa-fw fa-table"></i>
-            <span>Placeholder</span>
+            <span>Reportes</span>
         </a>
     </li>
 

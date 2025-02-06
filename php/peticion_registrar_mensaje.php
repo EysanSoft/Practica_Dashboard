@@ -8,7 +8,15 @@ $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv->load();
 $status = false;
 
-if ($_POST["tipo-select"] == "D") {
+switch ($_POST["tipo"]) {
+    case "C": $tipo = "Correo Electrónico";
+      break;
+    case "T": $tipo = "SMS";
+      break;
+    case "W": $tipo = "WhatsApp";
+      break;
+} 
+if ($_POST["tipo"] == "D") {
     $response = ["status" => $status, "message" => "Por favor seleccione el tipo de mensaje"];
     echo json_encode($response);
     exit();
@@ -20,17 +28,18 @@ elseif ($_POST["cliente"] == "D") {
 }
 else {
     $cuerpo = strip_tags($_POST["cuerpo"]);
-    $tipo = strip_tags($_POST["tipo"]);
+    $contacto = strip_tags($_POST["contacto"]);
 
-    if ($_POST["tipo-select"] == "T" || $_POST["tipo-select"] == "W") {
+    if ($_POST["tipo"] == "T" || $_POST["tipo"] == "W") {
         // Validar telefono.
-        $tipo = str_replace(' ', '', $tipo);
-        $tipo = str_replace('-', '', $tipo);
-        $tipo = strval($tipo);
+        $contacto = str_replace(' ', '', $contacto);
+        $contacto = str_replace('-', '', $contacto);
+        $contacto = strval($contacto);
     }
-    if (empty(trim($cuerpo)) !== true && empty(trim($tipo)) !== true) {
+    if (empty(trim($cuerpo)) !== true && empty(trim($contacto)) !== true) {
         $data = array(
             'cuerpo' => $cuerpo,
+            'contacto' => $contacto,
             'tipo' => $tipo,
             'status' => "Enviado",
             'clienteId' => $_POST["cliente"]
@@ -74,9 +83,9 @@ else {
                 echo json_encode($customResponse);
             }
             else {
-                if ($_POST["tipo-select"] == "T") {
+                if ($_POST["tipo"] == "T") {
                     try {
-                        enviarSMS($tipo, $cuerpo);
+                        enviarSMS($contacto, $cuerpo);
                         $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de SMS"];
                         curl_close($ch);
                         echo json_encode($customResponse);
@@ -89,9 +98,9 @@ else {
                         echo json_encode($customResponse);
                     }
                 }
-                elseif ($_POST["tipo-select"] == "W") {
+                elseif ($_POST["tipo"] == "W") {
                     try {
-                        enviarWhatsApp($tipo, $cuerpo);
+                        enviarWhatsApp($contacto, $cuerpo);
                         $customResponse = ["status" => $status, "message" => "Mensaje enviado a través de WhatsApp"];
                         curl_close($ch);
                         echo json_encode($customResponse);

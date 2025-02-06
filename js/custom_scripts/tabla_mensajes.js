@@ -14,6 +14,7 @@ $(document).ready(function () {
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
               `<td class='align-middle'>${element.cuerpo}</td>` +
+              `<td class='text-center align-middle'>${element.contacto}</td>` +
               `<td class='text-center align-middle'>${element.tipo}</td>` +
               `<td class='text-center align-middle'>${element.status}</td>` +
               `<td class='text-center align-middle'>${element.cliente}</td>` +

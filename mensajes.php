@@ -43,9 +43,10 @@
                     <tr>
                       <th scope="col" class="col-1 text-center">#</th>
                       <th scope="col" class="col-5 text-center">Cuerpo</th>
+                      <th scope="col" class="col-1 text-center">Contacto</th>
                       <th scope="col" class="col-1 text-center">Tipo</th>
                       <th scope="col" class="col-1 text-center">Status</th>
-                      <th scope="col" class="col-2 text-center">Cliente</th>
+                      <th scope="col" class="col-1 text-center">Cliente</th>
                       <th scope="col" class="col-1 text-center">Fecha y Hora</th>
                       <th scope="col" class="col-1 text-center">Acción</th>
                     </tr>
