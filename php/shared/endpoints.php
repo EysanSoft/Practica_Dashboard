@@ -22,8 +22,7 @@ class EndPoints {
     ### Mensajes ###
     static $crearMensaje = "mensaje/crear_mensaje/"; // POST
     static $obtenerMensajes = "mensaje/obtener_mensajes/"; // GET
-    static $obtenerMensaje = "mensaje/obtener_mensaje/"; // GET
-    static $actualizarMensaje = "mensaje/actualizar_mensaje/"; // PUT
+    static $obtenerTipos = "mensaje/obtener_tipos/"; // GET
     static $eliminarMensaje = "mensaje/eliminar_mensaje/"; // DELETE
     ### Fin Mensajes ###
 }
