@@ -74,9 +74,8 @@ $(document).ready(function () {
       else {
         Swal.fire({
           title: "¡Atención!",
-          html: `<p>${result.message}</p>` +
-                `<p>Espere a que los clientes registren mensajes durante el transcurso de la semana.</p>`,
-          icon: "warning",
+          text: result,
+          icon: "error",
           confirmButtonText: "Entendido",
         });
         diasContados = [0, 0, 0, 0, 0, 0, 0];
@@ -282,8 +281,7 @@ function contarDias(datos) {
     let fecha = new Date(element.creado).getDate();
     if (fecha == diaActual) {
       conteoDias[i] += 1;
-    }
-    else {
+    } else {
       i += 1;
       diaActual = fecha;
       conteoDias[i] += 1;
