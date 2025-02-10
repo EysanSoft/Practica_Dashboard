@@ -31,8 +31,11 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-4 text-gray-800">Reportes</h1>
             <div class="row my-2 justify-content-center">
-                <div class="col-12">
+                <div class="col-6">
                     <div id="graficaMensajesMensuales" style="width:100%; height:400px;"></div>
+                </div>
+                <div class="col-6">
+                    <div id="graficaMensajesDiarios" style="width:100%; height:400px;"></div>
                 </div>
             </div>
         </div>
