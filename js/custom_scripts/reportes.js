@@ -62,13 +62,13 @@ $(document).ready(function () {
     type: "POST",
     dataType: "JSON",
     data: {
-      postFechaInicial: semana[2][0],
-      postFechaFinal: semana[2][1],
+      postFechaInicial: semana[1][0],
+      postFechaFinal: semana[1][1],
     },
     success: function (result) {
       if (typeof result.message === "undefined" && result.data) {
         let datos = result.data;
-        let diasContados = contarDias(datos);
+        let diasContados = contarDias(datos, semana[0][0]);
         graficaMensajesDiarios(diasContados, semana);
       }
       else {
@@ -194,21 +194,23 @@ function graficaMensajesDiarios(conteoDiario, semana) {
     title: {
       text:
         "Mensajes Enviados - " +
-        semana[1][0] +
-        " a " +
-        semana[1][6] +
+        semana[0][0] +
         " de " +
-        semana[0],
+        semana[1][2] +
+        " a " +
+        semana[0][6] +
+        " de " +
+        semana[1][3],
     },
     xAxis: {
       categories: [
-        "Lunes, " + semana[1][0],
-        "Martes, " + semana[1][1],
-        "Miercoles, " + semana[1][2],
-        "Jueves, " + semana[1][3],
-        "Viernes, " + semana[1][4],
-        "Sabado, " + semana[1][5],
-        "Domingo, " + semana[1][6],
+        "Lunes, " + semana[0][0],
+        "Martes, " + semana[0][1],
+        "Miercoles, " + semana[0][2],
+        "Jueves, " + semana[0][3],
+        "Viernes, " + semana[0][4],
+        "Sabado, " + semana[0][5],
+        "Domingo, " + semana[0][6],
       ],
       crosshair: true,
     },
@@ -236,6 +238,7 @@ function graficaMensajesDiarios(conteoDiario, semana) {
 
 // Función qur obtiene la semana actual.
 function obtenerSemanaActual() {
+  // Falta corregir un error de logica... De Enero a Febrero...
   let fechaActual = new Date();
   let meses = [
     "Enero",
@@ -252,38 +255,47 @@ function obtenerSemanaActual() {
     "Diciembre",
   ];
   let mesActual = fechaActual.getMonth();
+  let mesSiguiente = mesActual + 1;
   let semanaActual = [];
   let rangoSemanal = [];
 
   mesActual = meses[mesActual];
+  // if ...
+  mesSiguiente = meses[mesSiguiente];
   for (let i = 1; i <= 7; i++) {
     let first = fechaActual.getDate() - fechaActual.getDay() + i;
     let dia = new Date(fechaActual.setDate(first)).getDate();
     let diaFechaCompleta = new Date(fechaActual.setDate(first))
       .toISOString()
       .slice(0, 10);
+
     semanaActual.push(dia);
     if (i == 1 || i == 7) {
       rangoSemanal.push(diaFechaCompleta);
     }
   }
-  let resultados = [mesActual, semanaActual, rangoSemanal];
+  rangoSemanal.push(mesActual);
+  rangoSemanal.push(mesSiguiente);
+  let resultados = [semanaActual, rangoSemanal];
 
   return resultados;
 }
 
 // Función que cuenta todos los mensajes obtenidos según el dia de su creación.
-function contarDias(datos) {
+function contarDias(datos, diaInicial) {
+  // Falta corregir un error de logica... De dia 30 a 01...
   let conteoDias = [0, 0, 0, 0, 0, 0, 0];
-  let diaActual = new Date(datos[0].creado).getDate();
   let i = 0;
   datos.forEach((element) => {
-    let fecha = new Date(element.creado).getDate();
-    if (fecha == diaActual) {
+    let dia = new Date(element.creado).getDate();
+    if (dia == diaInicial) {
       conteoDias[i] += 1;
-    } else {
-      i += 1;
-      diaActual = fecha;
+    }
+    else {
+      while (diaInicial < dia) {
+        diaInicial += 1;
+        i += 1;
+      }
       conteoDias[i] += 1;
     }
   });
