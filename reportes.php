@@ -61,7 +61,7 @@
   include "./layout/scripts.php";
   ?>
   <!-- End of Scripts -->
-  <script src="node_modules/highcharts/highcharts.js"></script>
+  <script src="node_modules/highcharts/highcharts.src.js"></script>
   <script src="js/custom_scripts/reportes.js"></script>
 </body>
 

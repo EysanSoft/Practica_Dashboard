@@ -70,6 +70,7 @@ $(document).ready(function () {
       if (typeof result.message === "undefined" && result.data) {
         let datos = result.data;
         let diasContados = contarDias(datos, semana[0][0]);
+
         graficaMensajesDiarios(diasContados, semana);
       }
       else {
@@ -228,7 +229,7 @@ function graficaMensajesDiarios(conteoDiario, semana) {
       column: {
         pointPadding: 0.1,
         borderWidth: 0,
-      },
+      }
     },
     series: [
       {
@@ -305,12 +306,18 @@ function obtenerSemanaActual() {
       dia = dia - 1;
       // Si el día retrocedio resulta ser un lunes, se registra la fecha de inicio con el mes actual.
       if (numDia == 1) {
-        // let diaFechaCompleta = new Date(fechaActual.setDate(dia)).toISOString().slice(0, 10);
-        let diaFechaCompleta = new Date(fechaActual.setDate(dia));
+        if (entroAlMesPasado == true) {
+          let diaFechaCompleta = new Date(fechaActual.setDate(dia));
 
-        diaFechaCompleta.setMonth(fechaActual.getMonth() - 1);
-        diaFechaCompleta = diaFechaCompleta.toISOString().slice(0, 10);
-        rangoSemanal.push(diaFechaCompleta);
+          diaFechaCompleta.setMonth(fechaActual.getMonth() - 1);
+          diaFechaCompleta = diaFechaCompleta.toISOString().slice(0, 10);
+          rangoSemanal.push(diaFechaCompleta);
+        }
+        else {
+          let diaFechaCompleta = new Date(fechaActual.setDate(dia)).toISOString().slice(0, 10);
+  
+          rangoSemanal.push(diaFechaCompleta);
+        }
       }
       semanaActualReverso.push(dia);
     }
@@ -337,6 +344,7 @@ function obtenerSemanaActual() {
   }
   else {
     let diaFechaCompleta = new Date(fechaActual.setDate(diaInicial)).toISOString().slice(0, 10);
+
     rangoSemanal.push(diaFechaCompleta);
   }
   semanaActualReverso.reverse();
@@ -354,7 +362,7 @@ function obtenerSemanaActual() {
     rangoSemanal.push(meses[mesActual]);
   }
   let resultados = [semanaActualReverso, rangoSemanal];
-  console.log(resultados);
+  
   return resultados;
 }
 
