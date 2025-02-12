@@ -188,6 +188,9 @@ function graficaMensajesMensuales(conteoMensual) {
   Recibe un arreglo de conteo de mensajes registrados durante la semana actual.
 */
 function graficaMensajesDiarios(conteoDiario, semana) {
+  let mesIni = semana[1][2];
+  let mesFin = semana[1][3];
+  
   const mensajesDiarios = Highcharts.chart("graficaMensajesDiarios", {
     chart: {
       type: "column",
@@ -197,11 +200,11 @@ function graficaMensajesDiarios(conteoDiario, semana) {
         "Mensajes Enviados - " +
         semana[0][0] +
         " de " +
-        semana[1][2] +
+        mesIni +
         " a " +
         semana[0][6] +
         " de " +
-        semana[1][3],
+        mesFin,
     },
     xAxis: {
       categories: [
@@ -351,7 +354,7 @@ function obtenerSemanaActual() {
     rangoSemanal.push(meses[mesActual]);
   }
   let resultados = [semanaActualReverso, rangoSemanal];
-  
+  console.log(resultados);
   return resultados;
 }
 
