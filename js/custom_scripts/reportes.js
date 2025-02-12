@@ -93,6 +93,8 @@ $(document).ready(function () {
       });
     },
   });
+
+  contarSemanas();
 });
 /*
   Esta función genera un gráfico de barras de todos los mensajes enviados al mes.
@@ -362,7 +364,7 @@ function obtenerSemanaActual() {
     rangoSemanal.push(meses[mesActual]);
   }
   let resultados = [semanaActualReverso, rangoSemanal];
-  
+
   return resultados;
 }
 
@@ -371,8 +373,10 @@ function contarDias(datos, diaInicial) {
   // Falta corregir un error de logica... De dia 30 a 01...
   let conteoDias = [0, 0, 0, 0, 0, 0, 0];
   let i = 0;
+
   datos.forEach((element) => {
     let dia = new Date(element.creado).getDate();
+
     if (dia == diaInicial) {
       conteoDias[i] += 1;
     }
@@ -385,4 +389,134 @@ function contarDias(datos, diaInicial) {
     }
   });
   return conteoDias;
+}
+
+function contarSemanas() {
+  let fecha = new Date();
+  let a = fecha.getFullYear();
+  let numMes = fecha.getMonth() + 1;
+  let semanasDisponibles = [];
+
+  // Si no es lunes, retroceder e incluir el mes anterior...
+  let primerDiaMes = new Date(a, numMes - 1, 1);
+
+  // Si no es domingo, avanzar e incluir el siguiente mes...
+  let ultimoDiaMes = new Date(a, numMes, 0);
+
+  // Comenzaremos con el primer día del mes...
+  let numDiaIndex = primerDiaMes.getDay();
+  let mesAnterior = new Date();
+
+  mesAnterior.setDate(0);
+  let dia = mesAnterior.getDate();
+  let diaFechaCompleta = mesAnterior;
+  let semana = [];
+
+  // Obtener lunes de la primera semana...
+  if (numDiaIndex == 1) {
+    diaFechaCompleta.setDate(dia);
+    semana.push(diaFechaCompleta);
+  }
+  else if (numDiaIndex == 0) {
+    numDiaIndex = 7;
+  }
+  else {
+    while (numDiaIndex != 1) {
+      numDiaIndex -= 1;
+      if (numDiaIndex == 1) {
+        diaFechaCompleta.setDate(dia);
+        semana.push(diaFechaCompleta);
+      }
+      dia = dia - 1;
+    }
+  }
+  numDiaIndex = primerDiaMes.getDay();
+  dia = primerDiaMes.getDate();
+  diaFechaCompleta = primerDiaMes;
+  
+  // Obtener domingo de la primera semana...
+  if (numDiaIndex == 0) {
+    diaFechaCompleta.setDate(dia);
+    semana.push(diaFechaCompleta);
+  }
+  else {
+    while (numDiaIndex != 7) {
+      numDiaIndex += 1;
+      dia = dia + 1;
+      if (numDiaIndex == 7) {
+        diaFechaCompleta.setDate(dia);
+        semana.push(diaFechaCompleta);
+      }
+    }
+  }
+  semanasDisponibles.push(semana);
+
+  // Obtener las demás semanas...
+  let limDia = dia + 1;
+  let primerCiclo = false;
+
+  while (limDia < ultimoDiaMes.getDate()) {
+    semana = [];
+    dia = dia + 1;
+    if (dia > ultimoDiaMes.getDate()) {
+      let siguienteMes = new Date(fecha.setDate(1));
+
+      siguienteMes.setMonth(fecha.getMonth() + 1);
+      dia = siguienteMes.getDate();
+      let numDia = siguienteMes.getDay();
+      
+      while (numDia != 0) {
+        dia += 1;
+        numDia += 1;
+        if (numDia == 7) {
+          numDia = 0;
+        }
+      }
+      siguienteMes.setDate(dia);
+      semana.push(siguienteMes);
+      semanasDisponibles.push(semana);
+      break;
+    }
+    else {
+      diaFechaCompleta.setDate(dia);
+      semana.push(diaFechaCompleta);
+    }
+    // Nota: Simplificar...
+    dia = dia + 6;
+    if (dia > ultimoDiaMes.getDate()) {
+      let siguienteMes = new Date(fecha.setDate(1));
+
+      siguienteMes.setMonth(fecha.getMonth() + 1);
+      dia = siguienteMes.getDate();
+      let numDia = siguienteMes.getDay();
+      
+      while (numDia != 0) {
+        dia += 1;
+        numDia += 1;
+        if (numDia == 7) {
+          numDia = 0;
+        }
+      }
+      siguienteMes.setDate(dia);
+      semana.push(siguienteMes);
+      semanasDisponibles.push(semana);
+      break;
+    }
+    else {
+      diaFechaCompleta.setDate(dia);
+      semana.push(diaFechaCompleta);
+    }
+    semanasDisponibles.push(semana);
+    if (primerCiclo == false) {
+      limDia = limDia + 6;
+      primerCiclo = true;
+    }
+    else {
+      limDia = limDia + 7;
+    }
+  }
+  // console.log(semana);
+  // console.log(semanasDisponibles[0][0]);
+  // console.log(semanasDisponibles[0][1]);
+  console.log(semanasDisponibles);
 }

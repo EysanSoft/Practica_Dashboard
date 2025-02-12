@@ -35,7 +35,20 @@
                     <div id="graficaMensajesMensuales" style="width:100%; height:400px;"></div>
                 </div>
                 <div class="col-6">
-                    <div id="graficaMensajesDiarios" style="width:100%; height:400px;"></div>
+                  <div id="graficaMensajesDiarios" style="width:100%; height:400px;"></div>
+                  <div class="row justify-content-start">
+                    <div class="col-4">
+                      <label for="rangoSemanas" class="form-label">Semanas</label>
+                      <select
+                        class="form-control"
+                        id="rangoSemanas"
+                        name="rangoSemanas"
+                        required>
+                        <option value="D" selected>No Disponible</option>
+                        <!-- Datos -->
+                      </select>
+                    </div>
+                  </div>
                 </div>
             </div>
         </div>
