@@ -436,6 +436,8 @@ function contarSemanas() {
   
   // Obtener domingo de la primera semana...
   if (numDiaIndex == 0) {
+    // Reiniciar la fecha...
+    diaFechaCompleta = new Date();
     diaFechaCompleta.setDate(dia);
     semana.push(diaFechaCompleta);
   }
@@ -444,6 +446,8 @@ function contarSemanas() {
       numDiaIndex += 1;
       dia = dia + 1;
       if (numDiaIndex == 7) {
+        // Reiniciar la fecha...
+        diaFechaCompleta = new Date();
         diaFechaCompleta.setDate(dia);
         semana.push(diaFechaCompleta);
       }
@@ -478,6 +482,8 @@ function contarSemanas() {
       break;
     }
     else {
+      // Reiniciar la fecha...
+      diaFechaCompleta = new Date();
       diaFechaCompleta.setDate(dia);
       semana.push(diaFechaCompleta);
     }
@@ -503,6 +509,8 @@ function contarSemanas() {
       break;
     }
     else {
+      // Reiniciar la fecha...
+      diaFechaCompleta = new Date();
       diaFechaCompleta.setDate(dia);
       semana.push(diaFechaCompleta);
     }
@@ -515,8 +523,5 @@ function contarSemanas() {
       limDia = limDia + 7;
     }
   }
-  // console.log(semana);
-  // console.log(semanasDisponibles[0][0]);
-  // console.log(semanasDisponibles[0][1]);
-  console.log(semanasDisponibles);
+  // console.log(semanasDisponibles);
 }
