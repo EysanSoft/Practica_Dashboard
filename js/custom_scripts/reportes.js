@@ -54,10 +54,49 @@ $(document).ready(function () {
     },
   });
 
-  // Obtener la semana actual, los siete días de dicha semana.
-  let semana = obtenerSemanaActual();
+  obtenerMensajesAlDia("!");
 
-  // Petición que obtiene el total de mensajes enviados al día.
+  // Obtener todas la semanas disponibles que tiene el mes actual.
+  let semanasDisponibles = contarSemanas();
+
+  // Llena el select con las semanas disponibles.
+  $("#rangoSemanas").empty();
+  $("#rangoSemanas").append(`<option value="D" selected>Elige una opción</option>`);
+  semanasDisponibles.forEach((element) => {
+    let fechaIni = formatearFecha(element[0]);
+    let fechaFin = formatearFecha(element[1]);
+    let semanaSeleccionada = [element[0].toISOString().slice(0, 10), element[1].toISOString().slice(0, 10)];
+
+    $("#rangoSemanas").append(
+      `<option value="${semanaSeleccionada}">${fechaIni} - ${fechaFin}</option>`
+    );
+  });
+
+  // Redibujar la gráfica de mensajes por día según la selección.
+  $("#rangoSemanas").on("change", function () {
+    let semanaSeleccionada = $(this).val();
+
+    if ($(this).val() != "D") {
+      obtenerMensajesAlDia(semanaSeleccionada);
+    }
+    else {
+      obtenerMensajesAlDia("!");
+    }
+  });
+});
+
+/*
+  Función que realiza una petición que obtiene el total de mensajes enviados al día,
+  donde recibe una semana seleccionada. 
+*/
+function obtenerMensajesAlDia(semanaSeleccionada) {
+  if(semanaSeleccionada != "!") {
+    semanaSeleccionada = semanaSeleccionada.split(",");
+  }
+  // Obtener la semana actual, los siete días de dicha semana.
+  let semana = obtenerSemanaActual(semanaSeleccionada);
+  
+  // Petición y graficar los resultados...
   jQuery.ajax({
     url: "./php/peticion_obtener_conteo_semanal.php",
     type: "POST",
@@ -93,9 +132,8 @@ $(document).ready(function () {
       });
     },
   });
+}
 
-  contarSemanas();
-});
 /*
   Esta función genera un gráfico de barras de todos los mensajes enviados al mes.
   Recibe un arreglo bidimensional de conteo de mensajes por tipo según el mes de registro.
@@ -243,9 +281,16 @@ function graficaMensajesDiarios(conteoDiario, semana) {
   });
 }
 
-// Función qur obtiene la semana actual.
-function obtenerSemanaActual() {
-  let fechaActual = new Date();
+// Función que obtiene la semana actual.
+function obtenerSemanaActual(semanaSeleccionada) {
+  let fechaActual;
+
+  if(semanaSeleccionada != "!") {
+    fechaActual = new Date(semanaSeleccionada[0] + "T00:00");
+  }
+  else {
+    fechaActual = new Date();
+  }
   let ultimoDiaMes = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0).getDate();
   let meses = [
     "Enero",
@@ -391,6 +436,7 @@ function contarDias(datos, diaInicial) {
   return conteoDias;
 }
 
+// Función que busca todas la semanas que el mes actual poseé, de lunes a domingo.
 function contarSemanas() {
   let fecha = new Date();
   let a = fecha.getFullYear();
@@ -523,5 +569,15 @@ function contarSemanas() {
       limDia = limDia + 7;
     }
   }
-  // console.log(semanasDisponibles);
+  return semanasDisponibles;
+}
+
+// Función para darle un formatdo presentable a las fechas.
+function formatearFecha(fechaOriginal) {
+  let fecha = new Date(fechaOriginal);
+  let d = fecha.getDate();
+  let m = fecha.getMonth() + 1;
+  let a = fecha.getFullYear();
+  let fechaFormateada = `${d}/${m}/${a}`;
+  return fechaFormateada;
 }

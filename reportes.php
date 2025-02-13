@@ -36,8 +36,8 @@
                 </div>
                 <div class="col-6">
                   <div id="graficaMensajesDiarios" style="width:100%; height:400px;"></div>
-                  <div class="row justify-content-start">
-                    <div class="col-4">
+                  <div class="row mt-2 justify-content-start">
+                    <div class="col-6">
                       <label for="rangoSemanas" class="form-label">Semanas</label>
                       <select
                         class="form-control"
