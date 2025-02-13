@@ -115,7 +115,7 @@ function obtenerMensajesAlDia(semanaSeleccionada) {
       else {
         Swal.fire({
           title: "¡Atención!",
-          text: result,
+          text: result.message,
           icon: "error",
           confirmButtonText: "Entendido",
         });
