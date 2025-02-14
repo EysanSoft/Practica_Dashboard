@@ -51,6 +51,24 @@
                   </div>
                 </div>
             </div>
+            <div class="row my-4 justify-content-center">
+                <div class="col-6">
+                  <div id="graficaPorcentajesMensajesDiarios" style="width:100%; height:400px;"></div>
+                  <div class="row mt-2 justify-content-start">
+                    <div class="col-6">
+                      <label for="rangoSemanas2" class="form-label">Semanas</label>
+                      <select
+                        class="form-control"
+                        id="rangoSemanas2"
+                        name="rangoSemanas2"
+                        required>
+                        <option value="D" selected>No Disponible</option>
+                        <!-- Datos -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
         <!-- End of Page Content -->
       </div>
