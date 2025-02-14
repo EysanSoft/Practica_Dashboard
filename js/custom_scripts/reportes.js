@@ -766,7 +766,7 @@ function contarSemanas() {
       diaFechaCompleta.setDate(dia);
       semana.push(diaFechaCompleta);
     }
-    // Nota: Simplificar...
+    // Nota: Simplificar.
     dia = dia + 6;
     if (dia > ultimoDiaMes.getDate()) {
       let siguienteMes = new Date(fecha.setDate(1));
