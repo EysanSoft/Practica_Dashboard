@@ -1,11 +1,12 @@
 $(document).ready(function () {
-  // Petición que obtiene el total de mensajes enviados al mes.
+  // Petición que obtiene el total de mensajes enviados al mes, de este año.
   jQuery.ajax({
     url: "./php/peticion_obtener_tipos.php",
     type: "GET",
     dataType: "JSON",
     success: function (result) {
       if (typeof result.message === "undefined" && result.data) {
+        let fechaActual = new Date();
         let data = result.data;
         let meses = [];
         let mesActual = 0;
@@ -15,21 +16,23 @@ $(document).ready(function () {
           let fecha = new Date(element.creado);
           let mes = fecha.getMonth();
 
-          if (mes != mesActual) {
-            meses[mesActual] = conteoDeTipos;
-            mesActual += 1;
-            conteoDeTipos = [0, 0, 0];
-          }
-          switch (element.tipo) {
-            case "Correo Electrónico":
-              conteoDeTipos[0] += 1;
-              break;
-            case "SMS":
-              conteoDeTipos[1] += 1;
-              break;
-            case "WhatsApp":
-              conteoDeTipos[2] += 1;
-              break;
+          if(fecha.getFullYear() == fechaActual.getFullYear()) {
+            if (mes != mesActual) {
+              meses[mesActual] = conteoDeTipos;
+              mesActual += 1;
+              conteoDeTipos = [0, 0, 0];
+            }
+            switch (element.tipo) {
+              case "Correo Electrónico":
+                conteoDeTipos[0] += 1;
+                break;
+              case "SMS":
+                conteoDeTipos[1] += 1;
+                break;
+              case "WhatsApp":
+                conteoDeTipos[2] += 1;
+                break;
+            }
           }
         });
         meses[mesActual] = conteoDeTipos;
@@ -67,6 +70,76 @@ $(document).ready(function () {
   El "!" es para obtener los datos de la fecha actual.
   */
   obtenerPorcentajesMensajesAlDia("!");
+
+  // Petición que obtiene el total de mensajes enviados durante los años.
+  jQuery.ajax({
+    url: "./php/peticion_obtener_tipos.php",
+    type: "GET",
+    dataType: "JSON",
+    success: function (result) {
+      if (typeof result.message === "undefined" && result.data) {
+        let data = result.data;
+        let fechaInicial = new Date(result.data[0].creado);
+        let aIndex = fechaInicial.getFullYear();
+        let anual = [[0], [0], [0]];
+        let conteoDeTipos = [0, 0, 0];
+        let rangoAnual = [aIndex];
+        let i = 0;
+
+        data.forEach((element) => {
+          let fecha = new Date(element.creado);
+          let a = fecha.getFullYear();
+
+          if (a != aIndex) {
+            anual[0][i] = conteoDeTipos[0];
+            anual[1][i] = conteoDeTipos[1];
+            anual[2][i] = conteoDeTipos[2];
+            // Detalle...
+            anual[0].append(0);
+            anual[1].append(0);
+            anual[2].append(0);
+            aIndex = a;
+            conteoDeTipos = [0, 0, 0];
+            i =+ 1;
+          }
+          switch (element.tipo) {
+            case "Correo Electrónico":
+              conteoDeTipos[0] += 1;
+              break;
+            case "SMS":
+              conteoDeTipos[1] += 1;
+              break;
+            case "WhatsApp":
+              conteoDeTipos[2] += 1;
+              break;
+          }
+        });
+        anual[0][i] = conteoDeTipos[0];
+        anual[1][i] = conteoDeTipos[1];
+        anual[2][i] = conteoDeTipos[2];
+        rangoAnual.push(aIndex);
+        graficaMensajesAnuales(anual, rangoAnual);
+      }
+      else {
+        rangoAnual = ["?", "?"];
+        graficaMensajesAnuales("!", rangoAnual);
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
+    },
+    error: function (error) {
+      Swal.fire({
+        title: "Ha ocurrido un error técnico...",
+        html: error + "<br>" + "Comuníquese con el administrador del sistema.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      });
+    },
+  });
 
   // Obtener todas la semanas disponibles que tiene el mes actual.
   let semanasDisponibles = contarSemanas();
@@ -384,7 +457,7 @@ function graficaMensajesDiarios(conteoDiario, semana) {
       {
         name: "Días de la Semana",
         data: conteoDiario,
-        color: "#ffff00",
+        color: "#ff0040",
       },
     ],
   });
@@ -433,19 +506,22 @@ function graficaPorcentajesMensajesDiarios(conteoDiario, semana) {
     },
     plotOptions: {
         column: {
-            stacking: 'normal'
-        }
+            stacking: 'normal',
+            dataLabels: {
+              enabled: true
+            }
+        },
     },
     series: [
       {
         name: 'Correo',
         data: conteoDiario[0],
-        color: "#ff0c0c"
+        color: "#9c9c9c"
       },
       {
         name: 'SMS',
         data: conteoDiario[1],
-        color: "#f200ff"
+        color: "#0073ff"
       },
       {
         name: 'WhatsApp',
@@ -453,6 +529,77 @@ function graficaPorcentajesMensajesDiarios(conteoDiario, semana) {
         color: "#04ff00"
       }
     ]
+  });
+}
+
+/*
+  Esta función genera un gráfico de líneas de todos los mensajes enviados por los años.
+  Recibe un arreglo bidimensional...
+*/
+function graficaMensajesAnuales(conteoAnual, rangoAnual) {
+  if (conteoAnual == "!") {
+    conteoAnual = [[0], [0], [0]];
+  }
+  const mensajesAnuales = Highcharts.chart('graficaMensajesAnuales', {
+    title: {
+        text: 'Mensajes Enviados Durante los Años',
+    },
+    yAxis: {
+        title: {
+            text: 'Mensajes'
+        }
+    },
+    xAxis: {
+        accessibility: {
+            rangeDescription: rangoAnual[0] + " - " + rangoAnual[1]
+        }
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: rangoAnual[0]
+        }
+    },
+    series: [
+      {
+        name: 'Correo',
+        data: conteoAnual[0],
+        color: "#9c9c9c"
+      },
+      {
+        name: 'SMS',
+        data: conteoAnual[1],
+        color: "#0073ff"
+      },
+      {
+        name: 'WhatsApp',
+        data: conteoAnual[2],
+        color: "#04ff00"
+      }
+    ],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 500
+          },
+          chartOptions: {
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom'
+            }
+          }
+        }
+      ]
+    }
   });
 }
 
@@ -660,7 +807,7 @@ function contarDias(datos, diaInicial, conTipos) {
       let total = conteoDeTipos[0][i] + conteoDeTipos[1][i] + conteoDeTipos[2][i];
 
       while (j < 3) {
-        conteoDeTipos[j][i] = (conteoDeTipos[j][i] * 100) / total;
+        conteoDeTipos[j][i] = Math.round((conteoDeTipos[j][i] * 100) / total);
         j += 1;
       }
       i += 1;

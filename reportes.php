@@ -68,6 +68,9 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-6">
+                    <div id="graficaMensajesAnuales" style="width:100%; height:400px;"></div>
+                </div>
             </div>
         </div>
         <!-- End of Page Content -->
