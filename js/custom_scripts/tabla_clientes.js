@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // Eliminar el mensaje "Sin datos." en la tabla.
-  $("#tablaClientes").empty();
+  $("#cuerpoTablaClientes").empty();
 
   // Cargar los datos de cliente en la tabla con una solicitud ajax GET.
   jQuery.ajax({
@@ -11,7 +11,7 @@ $(document).ready(function () {
       if (typeof result.message === 'undefined' && result.data) {
         let data = result.data;
         data.forEach((element) => {
-          $("#tablaClientes").append(
+          $("#cuerpoTablaClientes").append(
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
               `<td class='text-center align-middle'>${element.nombre}</td>` +
@@ -21,6 +21,7 @@ $(document).ready(function () {
               `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
             `</tr>`
           );
+          new DataTable('#tablaClientes');
         });
       }
       else {
@@ -30,7 +31,7 @@ $(document).ready(function () {
           icon: "error",
           confirmButtonText: "Entendido",
         });
-        $("#tablaClientes").append(`
+        $("#cuerpoTablaClientes").append(`
           <tr>
             <td colspan="6"><b>Sin datos...</b></td>
           </tr>
@@ -44,7 +45,7 @@ $(document).ready(function () {
         icon: "error",
         confirmButtonText: "Entendido",
       });
-      $("#tablaClientes").append(`
+      $("#cuerpoTablaClientes").append(`
         <tr>
           <td colspan="6"><b>Sin datos...</b></td>
         </tr>

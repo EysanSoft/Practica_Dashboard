@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#tablaMensajes").empty();
+  $("#cuerpoTablaMensajes").empty();
 
   jQuery.ajax({
     url: "./php/peticion_obtener_mensajes.php",
@@ -10,7 +10,7 @@ $(document).ready(function () {
         let data = result.data;
         data.forEach((element) => {
           let fechaYHora = formatearFecha(element.creado);
-          $("#tablaMensajes").append(
+          $("#cuerpoTablaMensajes").append(
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
               `<td class='align-middle'>${element.cuerpo}</td>` +
@@ -20,10 +20,12 @@ $(document).ready(function () {
               `<td class='text-center align-middle'>${element.cliente}</td>` +
               `<td class='text-center align-middle'>${fechaYHora}</td>` +
               `<td class='text-center align-middle'><button class="btn btn-danger" onClick="eliminarMensaje(${element.id})">Eliminar</button></td>` +
-              `</tr>`
+            `</tr>`
           );
         });
+        new DataTable('#tablaMensajes');
       }
+      
       else {
         Swal.fire({
           title: "¡Atención!",
@@ -31,9 +33,9 @@ $(document).ready(function () {
           icon: "error",
           confirmButtonText: "Entendido",
         });
-        $("#tablaMensajes").append(`
+        $("#cuerpoTablaMensajes").append(`
           <tr>
-            <td colspan="6"><b>Sin datos...</b></td>
+            <td colspan="8"><b>Sin datos...</b></td>
           </tr>
         `);
       }
@@ -45,7 +47,7 @@ $(document).ready(function () {
         icon: "error",
         confirmButtonText: "Entendido",
       });
-      $("#tablaMensajes").append(`
+      $("#cuerpoTablaMensajes").append(`
         <tr>
           <td colspan="6"><b>Sin datos...</b></td>
         </tr>

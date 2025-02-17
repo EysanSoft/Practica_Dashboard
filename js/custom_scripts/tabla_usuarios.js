@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // Eliminar el mensaje "Sin datos." en la tabla.
-  $("#tablaUsuarios").empty();
+  $("#cuerpoTablaUsuarios").empty();
 
   // Cargar los datos de usuario en la tabla con una solicitud ajax GET.
   jQuery.ajax({
@@ -11,7 +11,7 @@ $(document).ready(function () {
       if (typeof result.message === "undefined" && result.data) {
         let data = result.data;
         data.forEach((element) => {
-          $("#tablaUsuarios").append(
+          $("#cuerpoTablaUsuarios").append(
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
               `<td class='text-center align-middle'>${element.nombre}</td>` +
@@ -22,6 +22,7 @@ $(document).ready(function () {
             `</tr>`
           );
         });
+        new DataTable('#tablaUsuarios');
       }
       else {
         Swal.fire({
@@ -30,7 +31,7 @@ $(document).ready(function () {
           icon: "error",
           confirmButtonText: "Entendido",
         });
-        $("#tablaUsuarios").append(`
+        $("#cuerpoTablaUsuarios").append(`
           <tr>
             <td colspan="6"><b>Sin datos...</b></td>
           </tr>
@@ -44,7 +45,7 @@ $(document).ready(function () {
         icon: "error",
         confirmButtonText: "Entendido",
       });
-      $("#tablaUsuarios").append(`
+      $("#cuerpoTablaUsuarios").append(`
         <tr>
           <td colspan="6"><b>Sin datos...</b></td>
         </tr>

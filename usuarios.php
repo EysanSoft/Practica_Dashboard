@@ -6,6 +6,11 @@
   <?php
   include "./layout/head.php";
   ?>
+  <link
+    href="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.css"
+    rel="stylesheet"
+    integrity="sha384-M6C9anzq7GcT0g1mv0hVorHndQDVZLVBkRVdRb2SsQT7evLamoeztr1ce+tvn+f2"
+    crossorigin="anonymous">
   <!-- End of Head -->
 </head>
 
@@ -41,7 +46,8 @@
             <div class="col-12">
               <div class="table-responsive">
                 <table
-                  class="table table-primary table-striped table-bordered table-hover">
+                  class="table table-primary table-striped table-bordered table-hover"
+                  id="tablaUsuarios">
                   <thead>
                     <tr>
                       <th scope="col" class="col-1 text-center">#</th>
@@ -52,7 +58,7 @@
                       <th scope="col" class="col-2 text-center">Acción</th>
                     </tr>
                   </thead>
-                  <tbody id="tablaUsuarios">
+                  <tbody id="cuerpoTablaUsuarios">
                     <tr>
                       <td colspan="6"><b>Sin datos...</b></td>
                     </tr>
@@ -126,6 +132,11 @@
   include "./layout/scripts.php";
   ?>
   <!-- End of Scripts -->
+  <script
+    src="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.js"
+    integrity="sha384-k90VzuFAoyBG5No1d5yn30abqlaxr9+LfAPp6pjrd7U3T77blpvmsS8GqS70xcnH"
+    crossorigin="anonymous">
+  </script>
   <script src="js/custom_scripts/tabla_usuarios.js"></script>
 </body>
 
