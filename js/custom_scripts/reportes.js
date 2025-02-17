@@ -94,13 +94,12 @@ $(document).ready(function () {
             anual[0][i] = conteoDeTipos[0];
             anual[1][i] = conteoDeTipos[1];
             anual[2][i] = conteoDeTipos[2];
-            // Detalle...
-            anual[0].append(0);
-            anual[1].append(0);
-            anual[2].append(0);
+            anual[0].push(0);
+            anual[1].push(0);
+            anual[2].push(0);
             aIndex = a;
             conteoDeTipos = [0, 0, 0];
-            i =+ 1;
+            i += 1;
           }
           switch (element.tipo) {
             case "Correo Electrónico":
@@ -542,7 +541,7 @@ function graficaMensajesAnuales(conteoAnual, rangoAnual) {
   }
   const mensajesAnuales = Highcharts.chart('graficaMensajesAnuales', {
     title: {
-        text: 'Mensajes Enviados Durante los Años',
+        text: "Mensajes Enviados Durante los Años - " + rangoAnual[0] + " a " + rangoAnual[1],
     },
     yAxis: {
         title: {
