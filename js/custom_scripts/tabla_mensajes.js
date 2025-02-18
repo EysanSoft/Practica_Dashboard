@@ -144,6 +144,7 @@ function filtrarTablaPorFechas(fechaI, fechaF, tablaMensajes) {
     return false;
   });
   tablaMensajes.draw();
+  DataTable.ext.search.pop();
 }
 
 function eliminarMensaje(id) {
