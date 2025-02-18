@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  let tablaUsuarios;
   // Eliminar el mensaje "Sin datos." en la tabla.
   $("#cuerpoTablaUsuarios").empty();
 
@@ -22,7 +23,16 @@ $(document).ready(function () {
             `</tr>`
           );
         });
-        new DataTable('#tablaUsuarios');
+        tablaUsuarios = new DataTable("#tablaUsuarios", {
+          responsive: true,
+          layout: {
+            topStart: 'search',
+            topEnd: 'pageLength',
+          },
+          language: {
+            url: './js/json/es-MX.json',
+          }
+        });
       }
       else {
         Swal.fire({

@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  let tablaMensajes;
+
   $("#cuerpoTablaMensajes").empty();
 
   jQuery.ajax({
@@ -23,9 +25,17 @@ $(document).ready(function () {
             `</tr>`
           );
         });
-        new DataTable('#tablaMensajes');
+        tablaMensajes = new DataTable("#tablaMensajes", {
+          responsive: true,
+          layout: {
+            topStart: 'search',
+            topEnd: 'pageLength',
+          },
+          language: {
+            url: './js/json/es-MX.json',
+          }
+        });
       }
-      
       else {
         Swal.fire({
           title: "¡Atención!",
@@ -49,22 +59,91 @@ $(document).ready(function () {
       });
       $("#cuerpoTablaMensajes").append(`
         <tr>
-          <td colspan="6"><b>Sin datos...</b></td>
+          <td colspan="8"><b>Sin datos...</b></td>
         </tr>
       `);
     },
   });
+
+  $("#fechaIni").on("change", function () {
+    if($("#fechaFin").val() != "") {
+      if($("#fechaIni").val() > $("#fechaFin").val()) {
+        Swal.fire({
+          title: "¡Atención!",
+          text: "La fecha de inicial no puede ser mayor a la fecha final...",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+        });
+      }
+      else {
+        filtrarTablaPorFechas($(this).val(), $("#fechaFin").val(), tablaMensajes);
+      }
+    }
+  });
+
+  $("#fechaFin").on("change", function () {
+    if($("#fechaIni").val() != "") {
+      if($("#fechaIni").val() > $("#fechaFin").val()) {
+        Swal.fire({
+          title: "¡Atención!",
+          text: "La fecha de inicial no puede ser mayor a la fecha final...",
+          icon: "warning",
+          confirmButtonText: "Entendido",
+        });
+      }
+      else {
+        filtrarTablaPorFechas($("#fechaIni").val(), $(this).val(), tablaMensajes);
+      }
+    }
+  });
+
 });
 
 function formatearFecha(fechaOriginal) {
   let fecha = new Date(fechaOriginal);
-  let d = fecha.getDate();
-  let m = fecha.getMonth() + 1;
-  let a = fecha.getFullYear();
-  let h = fecha.getHours();
-  let min = fecha.getMinutes();
+  let d = fecha.getUTCDate();
+  let m = fecha.getUTCMonth() + 1;
+  let a = fecha.getUTCFullYear();
+  let h = fecha.getUTCHours();
+  let min = fecha.getUTCMinutes();
   let fechaFormateada = `${d}-${m}-${a}, ${h}:${min}`;
   return fechaFormateada;
+}
+
+function desformatearFecha(fechaOriginal) {
+  let fecha = fechaOriginal.split(",");
+
+  fecha = fecha[0].split("-");
+  if(fecha[1].length == 1) {
+    fecha[1] = "0" + fecha[1];
+  }
+  if(fecha[0].length == 1) {
+    fecha[0] = "0" + fecha[0];
+  }
+  let fechaFormateada = `${fecha[2]}-${fecha[1]}-${fecha[0]}`;
+
+  return fechaFormateada;
+}
+
+function filtrarTablaPorFechas(fechaI, fechaF, tablaMensajes) {
+  let fechaIni = new Date(fechaI + "T00:00");
+  let fechaFin = new Date(fechaF + "T00:00");
+
+  DataTable.ext.search.push(function (settings, data, dataIndex) {
+    let creadoOriginal = desformatearFecha(data[6]);
+    let creado = new Date(creadoOriginal + "T00:00");
+  
+    if (
+        (fechaIni === null && fechaFin === null) ||
+        (fechaIni === null && creado <= fechaFin) ||
+        (fechaIni <= creado && fechaFin === null) ||
+        (fechaIni <= creado && creado <= fechaFin)
+    ) {
+        return true;
+    }
+    return false;
+  });
+  tablaMensajes.draw();
 }
 
 function eliminarMensaje(id) {

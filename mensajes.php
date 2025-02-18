@@ -35,14 +35,29 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Mensajes</h1>
-          <button class="btn btn-success" onclick="window.location='registro_mensajes.php';">
-            Escribir Mensaje
-          </button>
+          
+          <!-- ########## Botones Personalizados ########## -->
+          <div class="row align-items-center">
+            <div class="col">
+              <button class="btn btn-success" onclick="window.location='registro_mensajes.php';">
+                Escribir Mensaje
+              </button>
+            </div>
+            <div class="col-3">
+              <label for="fechaIni" class="form-label">Fecha Inicial</label>
+              <input class="form-control" type="date" id="fechaIni" name="fechaIni">
+            </div>
+            <div class="col-3">
+              <label for="fechaFin" class="form-label">Fecha Final</label>
+              <input class="form-control" type="date" id="fechaFin" name="fechaFin">
+            </div>
+          </div>
+          <!-- ########## Fin de Botones Personalizados ########## -->
+
           <!-- ########## Tabla Mensajes ########## -->
           <div class="row my-2 justify-content-center">
             <div class="col-12">
               <div class="table-responsive">
-
                 <table
                   class="table table-secondary table-striped table-bordered table-hover"
                   id="tablaMensajes">

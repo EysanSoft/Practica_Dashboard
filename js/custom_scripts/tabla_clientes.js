@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  let tablaClientes;
   // Eliminar el mensaje "Sin datos." en la tabla.
   $("#cuerpoTablaClientes").empty();
 
@@ -21,7 +22,16 @@ $(document).ready(function () {
               `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarCliente(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarCliente(${element.id})">Eliminar</button></td>` +
             `</tr>`
           );
-          new DataTable('#tablaClientes');
+        });
+        tablaClientes = new DataTable("#tablaClientes", {
+          responsive: true,
+          layout: {
+            topStart: 'search',
+            topEnd: 'pageLength',
+          },
+          language: {
+            url: './js/json/es-MX.json',
+          }
         });
       }
       else {
