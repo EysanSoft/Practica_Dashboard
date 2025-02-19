@@ -8,6 +8,7 @@ class EndPoints {
     static $obtenerUsuarios = "usuario/obtener_usuarios/"; // GET
     static $obtenerUsuario = "usuario/obtener_usuario/"; // GET
     static $actualizarUsuario = "usuario/actualizar_usuario/"; // PUT
+    static $actualizarContra = "usuario/actualizar_contrasena/"; // PUT
     static $eliminarUsuario = "usuario/eliminar_usuario/"; // DELETE
     ### Fin Usuarios ###
 

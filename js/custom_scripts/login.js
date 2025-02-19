@@ -31,7 +31,6 @@ $(document).ready(function () {
           });
         }
         else {
-          // alert(response.token);
           location.replace("./index.php");
         }
       },

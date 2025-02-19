@@ -99,16 +99,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <b>Editar Cliente</b>
-          <!--
-              Por alguna razon, el botón no funciona.
-              tuve que implementarle un onclick para forzar el cierre.
-            -->
           <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-            onclick="$('#modalEditarCliente').modal('hide');"></button>
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close">
+              <span aria-hidden="true">×</span>
+          </button>
         </div>
         <div class="modal-body">
           <div class="row mx-3 mt-2 justify-content-center">

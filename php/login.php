@@ -31,6 +31,7 @@ else {
     }
     else {
         $_SESSION['token'] = $response -> token;
+        $_SESSION['userId'] = $response -> user;
         $response -> token = "";
         curl_close($ch);
         echo json_encode($response);

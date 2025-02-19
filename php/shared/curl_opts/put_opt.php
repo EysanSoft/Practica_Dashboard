@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $token = $_SESSION['token'];
 $json_data = json_encode($data);
 $ch = curl_init($url);
