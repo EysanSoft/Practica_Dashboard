@@ -109,7 +109,7 @@
   <!-- End of Page Wrapper -->
   <!-- Logout Modal-->
   <?php
-  include "./layout/modal_logout.php";
+  include "./layout/modals.php";
   ?>
   <!-- End of Logout Modal-->
   <!-- Scripts -->
