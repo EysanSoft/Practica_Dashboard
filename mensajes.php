@@ -7,9 +7,8 @@
   include "./layout/head.php";
   ?>
   <link
-    href="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.css"
-    rel="stylesheet"
-    integrity="sha384-M6C9anzq7GcT0g1mv0hVorHndQDVZLVBkRVdRb2SsQT7evLamoeztr1ce+tvn+f2"
+    href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-html5-3.2.2/datatables.min.css" rel="stylesheet"
+    integrity="sha384-/kQ36LkYSVMxBaSxgi8/k7+CzkdFhb5ItDNckGQIVKc9lzsdwo1Kvoceqpb4BreE"
     crossorigin="anonymous">
   <!-- End of Head -->
 </head>
@@ -108,8 +107,17 @@
   ?>
   <!-- End of Scripts -->
   <script
-    src="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.js"
-    integrity="sha384-k90VzuFAoyBG5No1d5yn30abqlaxr9+LfAPp6pjrd7U3T77blpvmsS8GqS70xcnH"
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" integrity="sha384-VFQrHzqBh5qiJIU0uGU5CIW3+OWpdGGJM9LBnGbuIH2mkICcFZ7lPd/AAtI7SNf7"
+    crossorigin="anonymous">
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"
+    integrity="sha384-/RlQG9uf0M2vcTw3CX7fbqgbj/h8wKxw7C3zu9/GxcBPRKOEcESxaxufwRXqzq6n"
+    crossorigin="anonymous">
+  </script>
+  <script
+    src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.2.2/b-3.2.2/b-html5-3.2.2/datatables.min.js" 
+    integrity="sha384-W5JWOOUXI5sBfmA8pJlmzAeyLJj0zxWG16hMNbbDa1P9o2XWDkYssi5c0biHm2IW"
     crossorigin="anonymous">
   </script>
   <script src="js/custom_scripts/tabla_mensajes.js"></script>

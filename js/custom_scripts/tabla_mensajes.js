@@ -28,11 +28,13 @@ $(document).ready(function () {
         tablaMensajes = new DataTable("#tablaMensajes", {
           responsive: true,
           layout: {
-            topStart: 'search',
-            topEnd: 'pageLength',
+            topStart: {
+              buttons: ['csv', 'excel', 'pdf']
+            },
+            topEnd: 'pageLength'
           },
           language: {
-            url: './js/json/es-MX.json',
+            url: './js/json/es-MX.json'
           }
         });
       }
