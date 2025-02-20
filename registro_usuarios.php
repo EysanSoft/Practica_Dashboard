@@ -102,6 +102,16 @@
                       required />
                   </div>
                 </div>
+                <div class="row mb-4">
+                  <div class="col-2">
+                    <label for="rolId" class="form-label">Rol de Usuario</label>
+                      <select class="form-control" id="rolId" name="rolId" required>
+                        <option selected>Elige un rol</option>
+                        <option value="1">Administrador</option>
+                        <option value="2">Empleado</option>
+                      </select>
+                  </div>
+                </div>
                 <div class="row mb-3">
                   <div class="col-10">
                     <small>

@@ -12,6 +12,7 @@ $email = strip_tags($_POST["correo"]);
 $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
 $password = strip_tags($_POST["contra"]);
 $password2 = strip_tags($_POST["conContra"]);
+$rolId = strip_tags($_POST["rolId"]);
 $status = false;
 
 if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim($phone)) !== true && empty(trim($email)) !== true && empty(trim($password)) !== true && empty(trim($password2)) !== true) { 
@@ -32,6 +33,7 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
             'telefono' => $phone,
             'correo' => $email,
             'contrasena' => $password,
+            'rolId' => $rolId
         );
         $url = EndPoints::$apiUrl . EndPoints::$crearUsuario;
     
