@@ -5,6 +5,7 @@
   <!-- Head -->
   <?php
   include "./layout/head.php";
+  include "./layout/role_check.php";
   ?>
   <link
     href="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.css"

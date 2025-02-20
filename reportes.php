@@ -5,6 +5,7 @@
   <!-- Head -->
   <?php
   include "./layout/head.php";
+  include "./layout/role_check.php";
   ?>
   <!-- End of Head -->
 </head>
