@@ -27,5 +27,9 @@ class EndPoints {
     static $obtenerConteoSemanal = "mensaje/obtener_conteo_semanal/"; // GET
     static $eliminarMensaje = "mensaje/eliminar_mensaje/"; // DELETE
     ### Fin Mensajes ###
+
+    ### Permisos ###
+    static $obtenerPermisos = "permiso/obtener_permisos/"; // GET
+    ### Fin Permisos ###
 }
 ?>

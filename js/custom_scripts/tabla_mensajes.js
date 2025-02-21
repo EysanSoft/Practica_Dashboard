@@ -1,4 +1,38 @@
 $(document).ready(function () {
+  let permisoCrear, permisoEliminar;
+  
+  jQuery.ajax({
+    url: "./php/peticion_obtener_permisos.php",
+    type: "GET",
+    dataType: "JSON",
+    success: function (result) {
+      if (typeof result.message === "undefined" && result.data) {
+        let data = result.data;
+
+        data.forEach((element) => {
+          permisoCrear = element.crear;
+          permisoEliminar = element.eliminar;
+        });
+      }
+      else {
+        Swal.fire({
+          title: "¡Atención!",
+          text: result.message,
+          icon: "error",
+          confirmButtonText: "Entendido",
+        });
+      }
+    },
+    error: function (error) {
+      Swal.fire({
+        title: "Ha ocurrido un error técnico...",
+        html: error + "<br>" + "Comuníquese con el administrador del sistema.",
+        icon: "error",
+        confirmButtonText: "Entendido",
+      });
+    },
+  });
+
   let tablaMensajes;
 
   $("#cuerpoTablaMensajes").empty();
@@ -10,8 +44,10 @@ $(document).ready(function () {
     success: function (result) {
       if (typeof result.message === "undefined" && result.data) {
         let data = result.data;
+        
         data.forEach((element) => {
           let fechaYHora = formatearFecha(element.creado);
+
           $("#cuerpoTablaMensajes").append(
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
@@ -21,22 +57,39 @@ $(document).ready(function () {
               `<td class='text-center align-middle'>${element.status}</td>` +
               `<td class='text-center align-middle'>${element.cliente}</td>` +
               `<td class='text-center align-middle'>${fechaYHora}</td>` +
-              `<td class='text-center align-middle'><button class="btn btn-danger" onClick="eliminarMensaje(${element.id})">Eliminar</button></td>` +
+              `<td class='text-center align-middle'><button class="btn btn-danger botonEliminarMensaje" onClick="eliminarMensaje(${element.id})">Eliminar</button></td>` +
             `</tr>`
           );
         });
-        tablaMensajes = new DataTable("#tablaMensajes", {
-          responsive: true,
-          layout: {
-            topStart: {
-              buttons: ['csv', 'excel', 'pdf']
+        if (permisoEliminar == 0) {
+          $(".botonEliminarMensaje").prop("disabled", true);
+        }
+        if (permisoCrear == 0) {
+          tablaMensajes = new DataTable("#tablaMensajes", {
+            responsive: true,
+            layout: {
+              topStart: 'search',
+              topEnd: 'pageLength'
             },
-            topEnd: 'pageLength'
-          },
-          language: {
-            url: './js/json/es-MX.json'
-          }
-        });
+            language: {
+              url: './js/json/es-MX.json'
+            }
+          });
+        }
+        else {
+          tablaMensajes = new DataTable("#tablaMensajes", {
+            responsive: true,
+            layout: {
+              topStart: {
+                buttons: ['csv', 'excel', 'pdf']
+              },
+              topEnd: 'pageLength'
+            },
+            language: {
+              url: './js/json/es-MX.json'
+            }
+          });
+        }
       }
       else {
         Swal.fire({
