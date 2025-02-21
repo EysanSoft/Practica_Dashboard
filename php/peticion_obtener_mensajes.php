@@ -1,6 +1,14 @@
 <?php	
 include "shared/endpoints.php";
-$url = EndPoints::$apiUrl . EndPoints::$obtenerMensajes;
+
+session_start();
+
+if ($_SESSION["roleId"] == 1) {
+    $url = EndPoints::$apiUrl . EndPoints::$obtenerMensajes;
+}
+else {
+    $url = EndPoints::$apiUrl . EndPoints::$obtenerMensajes . $_SESSION["userId"];
+}
 
 include "shared/curl_opts/get_opt.php";
 

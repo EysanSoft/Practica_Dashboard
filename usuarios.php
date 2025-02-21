@@ -36,6 +36,7 @@
         <div class="container-fluid">
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-gray-800">Usuarios</h1>
+
           <button
             class="btn btn-success"
             onclick="window.location='registro_usuarios.php';">
@@ -57,6 +58,8 @@
                       <th scope="col" class="text-center">Teléfono</th>
                       <th scope="col" class="text-center">Correo</th>
                       <th scope="col" class="col-2 text-center">Acción</th>
+                      <!-- <th scope="col" class="col-2 text-center">¿Crear?</th>
+                      <th scope="col" class="col-2 text-center">¿Eliminar?</th> -->
                     </tr>
                   </thead>
                   <tbody id="cuerpoTablaUsuarios">

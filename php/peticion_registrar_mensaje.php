@@ -37,12 +37,16 @@ else {
         $contacto = strval($contacto);
     }
     if (empty(trim($cuerpo)) !== true && empty(trim($contacto)) !== true) {
+        session_start();
+        $usuarioId = $_SESSION["userId"];
+        $cliente = $_POST["cliente"];
         $data = array(
             'cuerpo' => $cuerpo,
             'contacto' => $contacto,
             'tipo' => $tipo,
             'status' => "Enviado",
-            'clienteId' => $_POST["cliente"]
+            'clienteId' => $cliente,
+            'usuarioId' => $usuarioId
         );
         $url = EndPoints::$apiUrl . EndPoints::$crearMensaje;
 
