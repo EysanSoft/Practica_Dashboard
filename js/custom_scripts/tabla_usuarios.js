@@ -11,7 +11,11 @@ $(document).ready(function () {
     success: function (result) {
       if (typeof result.message === "undefined" && result.data) {
         let data = result.data;
+
         data.forEach((element) => {
+          let crear = element.crear == 1 ? "Sí" : "No";
+          let eliminar = element.eliminar == 1 ? "Sí" : "No";
+
           $("#cuerpoTablaUsuarios").append(
             `<tr>` +
               `<th scope'row' class='text-center align-middle'>${element.id}</th>` +
@@ -19,6 +23,8 @@ $(document).ready(function () {
               `<td class='text-center align-middle'>${element.apellidos}</td>` +
               `<td class='text-center align-middle'>${element.telefono}</td>` +
               `<td class='text-center align-middle'>${element.correo}</td>` +
+              `<td class='text-center align-middle'>${crear}</td>` +
+              `<td class='text-center align-middle'>${eliminar}</td>` +
               `<td class='text-center align-middle'><button class="btn btn-primary" onClick="abrirModalEditarUsuario(${element.id})">Editar</button><button class="btn btn-danger" onClick="eliminarUsuario(${element.id})">Eliminar</button></td>` +
             `</tr>`
           );
@@ -43,7 +49,7 @@ $(document).ready(function () {
         });
         $("#cuerpoTablaUsuarios").append(`
           <tr>
-            <td colspan="6"><b>Sin datos...</b></td>
+            <td colspan="8"><b>Sin datos...</b></td>
           </tr>
         `);
       }
@@ -57,7 +63,7 @@ $(document).ready(function () {
       });
       $("#cuerpoTablaUsuarios").append(`
         <tr>
-          <td colspan="6"><b>Sin datos...</b></td>
+          <td colspan="8"><b>Sin datos...</b></td>
         </tr>
       `);
     },
@@ -143,7 +149,12 @@ function abrirModalEditarUsuario(id) {
     success: function (result) {
       if (typeof result.message === "undefined" && result.data) {
         let data = result.data;
+        let rol, crear, eliminar;
+
         data.forEach((element) => {
+          rol = element.rolId;
+          crear = element.crear;
+          eliminar = element.eliminar;
           $("#formularioEditarUsuario").append(
             `<div class="d.none">` +
               `<input type="hidden" class="form-control" id="idOculto" name="idOculto" value="${element.id}"/>` +
@@ -160,14 +171,63 @@ function abrirModalEditarUsuario(id) {
               `<label for="telefono" class="form-label">Telefono</label>` +
               `<input type="tel" class="form-control" id="telefono" name="telefono" value="${element.telefono}"/>` +
               `</div>` +
-              `<div class="mb-4">` +
+              `<div class="mb-3">` +
               `<label for="correo" class="form-label">Correo</label>` +
               `<input type="email" class="form-control" id="correo" name="correo" value="${element.correo}"/>` +
+              `</div>` +
+              `<div class="mb-3" id="permisosContainer">` +
               `</div>` +
               `<div class="mb-3">` +
               `<button class="btn btn-primary submitEditarUsuario" id="submit">Guardar Cambios</button>` +
               `</div>`
           );
+          // Sucio hack para que el select refleje los permisos del usuario.
+          if(rol == 2) {
+            if(crear == 1 && eliminar == 1) {
+              $("#permisosContainer").append(
+                `<label for="permisos" class="form-label">Permisos de Empleado</label>` +
+                `<select class="form-control" id="permisos" name="permisos">` +
+                  `<option value="">Sin Permisos</option>` +
+                  `<option value="C">Crear (Reportes de sus Mensajes)</option>` +
+                  `<option value="E">Eliminar</option>` +
+                  `<option value="C&E" selected>Crear y Eliminar</option>` +
+                `</select>`
+              );
+            }
+            else if(crear == 1) {
+              $("#permisosContainer").append(
+                `<label for="permisos" class="form-label">Permisos de Empleado</label>` +
+                `<select class="form-control" id="permisos" name="permisos">` +
+                  `<option value="">Sin Permisos</option>` +
+                  `<option value="C" selected>Crear (Reportes de sus Mensajes)</option>` +
+                  `<option value="E">Eliminar</option>` +
+                  `<option value="C&E">Crear y Eliminar</option>` +
+                `</select>`
+              );
+            }
+            else if(eliminar == 1) {
+              $("#permisosContainer").append(
+                `<label for="permisos" class="form-label">Permisos de Empleado</label>` +
+                `<select class="form-control" id="permisos" name="permisos">` +
+                  `<option value="">Sin Permisos</option>` +
+                  `<option value="C">Crear (Reportes de sus Mensajes)</option>` +
+                  `<option value="E" selected>Eliminar</option>` +
+                  `<option value="C&E">Crear y Eliminar</option>` +
+                `</select>`
+              );
+            }
+            else {
+              $("#permisosContainer").append(
+                `<label for="permisos" class="form-label">Permisos de Empleado</label>` +
+                `<select class="form-control" id="permisos" name="permisos">` +
+                  `<option value="" selected>Sin Permisos</option>` +
+                  `<option value="C">Crear (Reportes de sus Mensajes)</option>` +
+                  `<option value="E">Eliminar</option>` +
+                  `<option value="C&E">Crear y Eliminar</option>` +
+                `</select>`
+              );
+            }
+          }
           $("#modalEditarUsuario").modal("show");
         });
       }

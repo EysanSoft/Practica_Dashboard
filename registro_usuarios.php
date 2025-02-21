@@ -105,11 +105,20 @@
                 <div class="row mb-4">
                   <div class="col-2">
                     <label for="rolId" class="form-label">Rol de Usuario</label>
-                      <select class="form-control" id="rolId" name="rolId" required>
-                        <option selected>Elige un rol</option>
-                        <option value="1">Administrador</option>
-                        <option value="2">Empleado</option>
-                      </select>
+                    <select class="form-control" id="rolId" name="rolId" required>
+                      <option value="D" selected>Elige un rol</option>
+                      <option value="1">Administrador</option>
+                      <option value="2">Empleado</option>
+                    </select>
+                  </div>
+                  <div class="col-3" id="permisosContainer">
+                    <label for="permisos" class="form-label">Permisos de Empleado</label>
+                    <select class="form-control" id="permisos" name="permisos">
+                      <option selected>Sin Permisos</option>
+                      <option value="C">Crear (Reportes de sus Mensajes)</option>
+                      <option value="E">Eliminar</option>
+                      <option value="C&E">Crear y Eliminar</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row mb-3">

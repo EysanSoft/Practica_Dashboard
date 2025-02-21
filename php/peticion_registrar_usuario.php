@@ -13,6 +13,31 @@ $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,
 $password = strip_tags($_POST["contra"]);
 $password2 = strip_tags($_POST["conContra"]);
 $rolId = strip_tags($_POST["rolId"]);
+
+if($rolId == 1) {
+    $permisoCrear = True;
+    $permisoEliminar = True;
+}
+else {
+    switch ($_POST["permisos"]) {
+        case "C":
+            $permisoCrear = True;
+            $permisoEliminar = False;
+            break;
+        case "E":
+            $permisoCrear = False;
+            $permisoEliminar = True;
+            break;
+        case "C&E":
+            $permisoCrear = True;
+            $permisoEliminar = True;
+            break;
+        default:
+            $permisoCrear = False;
+            $permisoEliminar = False;
+            break;
+    } 
+}
 $status = false;
 
 if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim($phone)) !== true && empty(trim($email)) !== true && empty(trim($password)) !== true && empty(trim($password2)) !== true) { 
@@ -33,7 +58,9 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
             'telefono' => $phone,
             'correo' => $email,
             'contrasena' => $password,
-            'rolId' => $rolId
+            'rolId' => $rolId,
+            'crear' => $permisoCrear,
+            'eliminar' => $permisoEliminar
         );
         $url = EndPoints::$apiUrl . EndPoints::$crearUsuario;
     

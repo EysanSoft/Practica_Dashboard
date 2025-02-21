@@ -57,14 +57,14 @@
                       <th scope="col" class="text-center">Apellidos</th>
                       <th scope="col" class="text-center">Teléfono</th>
                       <th scope="col" class="text-center">Correo</th>
+                      <th scope="col" class="text-center">¿Crear?</th>
+                      <th scope="col" class="text-center">¿Eliminar?</th>
                       <th scope="col" class="col-2 text-center">Acción</th>
-                      <!-- <th scope="col" class="col-2 text-center">¿Crear?</th>
-                      <th scope="col" class="col-2 text-center">¿Eliminar?</th> -->
                     </tr>
                   </thead>
                   <tbody id="cuerpoTablaUsuarios">
                     <tr>
-                      <td colspan="6"><b>Sin datos...</b></td>
+                      <td colspan="8"><b>Sin datos...</b></td>
                     </tr>
                   </tbody>
                 </table>

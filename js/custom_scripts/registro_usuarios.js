@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  $("#permisosContainer").hide();
+
   $("#formularioRegistrarUsuario").submit(function (e) {
     let contra_1 = $("#contra").val();
     let contra_2 = $("#conContra").val();
@@ -68,6 +70,16 @@ $(document).ready(function () {
         confirmButtonText: "Entendido",
       });
       return false;
+    }
+  });
+
+  // Mostrar y ocultar el select de permisos.
+  $("#rolId").on("change", function () {
+    if ($(this).val() == "1" || $(this).val() == "D") {
+      $("#permisosContainer").hide();
+    }
+    if ($(this).val() == "2") {
+      $("#permisosContainer").show();
     }
   });
 });

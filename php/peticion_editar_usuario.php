@@ -4,12 +4,36 @@ include "shared/endpoints.php";
 $id = $_POST["idOculto"];
 $name = strip_tags($_POST["nombre"]);
 $lastName = strip_tags($_POST["apellido"]);
-// Validar telefono.
 $phone = strip_tags($_POST["telefono"]);
 $phone = str_replace(' ', '', $phone);
 $phone = str_replace('-', '', $phone);
 $phone = strval($phone);
 $email = strip_tags($_POST["correo"]);
+
+if(isset($_POST["permisos"])) {
+    switch ($_POST["permisos"]) {
+        case "C":
+            $permisoCrear = True;
+            $permisoEliminar = False;
+            break;
+        case "E":
+            $permisoCrear = False;
+            $permisoEliminar = True;
+            break;
+        case "C&E":
+            $permisoCrear = True;
+            $permisoEliminar = True;
+            break;
+        default:
+            $permisoCrear = False;
+            $permisoEliminar = False;
+            break;
+    } 
+}
+else {
+    $permisoCrear = True;
+    $permisoEliminar = True;
+}
 $status = false;
 
 if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim($phone)) !== true && empty(trim($email)) !== true) {
@@ -18,6 +42,8 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
         'apellidos' => $lastName,
         'telefono' => $phone,
         'correo' => $email,
+        'crear' => $permisoCrear,
+        'eliminar' => $permisoEliminar,
     );
     $url = EndPoints::$apiUrl . EndPoints::$actualizarUsuario . $id;
 
