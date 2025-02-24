@@ -7,11 +7,7 @@
   include "./layout/head.php";
   include "./layout/role_check.php";
   ?>
-  <link
-    href="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.css"
-    rel="stylesheet"
-    integrity="sha384-M6C9anzq7GcT0g1mv0hVorHndQDVZLVBkRVdRb2SsQT7evLamoeztr1ce+tvn+f2"
-    crossorigin="anonymous">
+  <link href="./css/datatables.min.css" rel="stylesheet">
   <!-- End of Head -->
 </head>
 
@@ -130,11 +126,7 @@
   include "./layout/scripts.php";
   ?>
   <!-- End of Scripts -->
-  <script
-    src="https://cdn.datatables.net/v/bs5/dt-2.2.2/datatables.min.js"
-    integrity="sha384-k90VzuFAoyBG5No1d5yn30abqlaxr9+LfAPp6pjrd7U3T77blpvmsS8GqS70xcnH"
-    crossorigin="anonymous">
-  </script>
+  <script src="./js/datatables.min.js"></script>
   <script src="js/custom_scripts/tabla_clientes.js"></script>
 </body>
 
