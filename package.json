@@ -34,8 +34,6 @@
     "@fortawesome/fontawesome-free": "5.15.3",
     "bootstrap": "4.6.0",
     "chart.js": "2.9.4",
-    "datatables.net-bs4": "1.10.24",
-    "datatables.net-bs5": "^2.2.2",
     "highcharts": "^12.1.2",
     "jquery": "3.6.0",
     "jquery.easing": "^1.4.1",

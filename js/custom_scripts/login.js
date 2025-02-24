@@ -31,7 +31,7 @@ $(document).ready(function () {
           });
         }
         else {
-          location.replace("./index.php");
+          location.replace("./index");
         }
       },
       error: function (error) {

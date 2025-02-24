@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a
         class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="index.php">
+        href="./index">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
@@ -16,7 +16,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.php">
+        <a class="nav-link" href="./index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -45,19 +45,11 @@
 
     <!-- Nav Item - Mensajes -->
     <li class="nav-item">
-        <a class="nav-link" href="mensajes.php">
+        <a class="nav-link" href="./mensajes">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Mensajes</span>
         </a>
     </li>
-
-    <!-- Nav Item - Reportes -->
-    <!-- <li class="nav-item">
-        <a class="nav-link" href="reportes.php">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Reportes</span>
-        </a>
-    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block" />

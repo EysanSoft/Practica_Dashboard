@@ -5,7 +5,7 @@ $(document).ready(function () {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        location.replace("./login.html");
+        location.replace("./login");
       },
       error: function (error) {
         Swal.fire({

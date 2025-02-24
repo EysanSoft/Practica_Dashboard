@@ -90,7 +90,7 @@ $(document).ready(function () {
             confirmButtonText: "Entendido",
           }).then((result) => {
             if (result.isConfirmed) {
-              location.replace("./mensajes.php");
+              location.replace("./mensajes");
             }
           });
         }
