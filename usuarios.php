@@ -35,7 +35,7 @@
 
           <button
             class="btn btn-success"
-            onclick="window.location='registro_usuarios.php';">
+            onclick="window.location='./registro_usuarios';">
             Registrar un Usuario
           </button>
 

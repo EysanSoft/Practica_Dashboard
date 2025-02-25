@@ -1,6 +1,6 @@
 <?php
 class EndPoints {
-    static $apiUrl = "https://2395-177-229-104-23.ngrok-free.app/";
+    static $apiUrl = "https://1e61-177-229-104-23.ngrok-free.app/";
 
     ### Usuarios ###
     static $iniciarSesion = "autenticar_usuario/iniciar_sesion/"; // POST

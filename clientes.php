@@ -34,7 +34,7 @@
           <h1 class="h3 mb-4 text-gray-800">Clientes</h1>
           <button
             class="btn btn-success"
-            onclick="window.location='registro_clientes.php';">
+            onclick="window.location='./registro_clientes';">
             Registrar un Cliente
           </button>
 

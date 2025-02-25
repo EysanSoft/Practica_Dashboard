@@ -35,7 +35,7 @@
           <!-- ########## Botones Personalizados ########## -->
           <div class="row align-items-center">
             <div class="col">
-              <button class="btn btn-success" onclick="window.location='registro_mensajes.php';">
+              <button class="btn btn-success" onclick="window.location='./registro_mensajes';">
                 Escribir Mensaje
               </button>
             </div>

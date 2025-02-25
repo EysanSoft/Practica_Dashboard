@@ -30,7 +30,28 @@ $(document).ready(function () {
             topEnd: 'pageLength',
           },
           language: {
-            url: './js/json/es-MX.json',
+            "decimal":        "",
+            "emptyTable":     "No hay datos.",
+            "info":           "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "infoEmpty":      "Mostrando 0 a 0 de 0 entradas",
+            "infoFiltered":   "(Filtrado de _MAX_ entradas totales)",
+            "infoPostFix":    "",
+            "thousands":      ",",
+            "lengthMenu":     "Mostrando _MENU_ entrada(s)",
+            "loadingRecords": "Cargando...",
+            "processing":     "",
+            "search":         "Buscar:",
+            "zeroRecords":    "No se encontraron coincidencias.",
+            "paginate": {
+                "first":      "Primero",
+                "last":       "Último",
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            },
+            "aria": {
+                "orderable":  "Ordenar esta columna",
+                "orderableReverse": "Ordenar esta columna en orden inverso"
+            }
           }
         });
       }
