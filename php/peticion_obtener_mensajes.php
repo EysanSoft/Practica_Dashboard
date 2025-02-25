@@ -1,5 +1,11 @@
 <?php	
 include "shared/endpoints.php";
+$ini = strip_tags($_POST["postFechaInicial"]);
+$fin = strip_tags($_POST["postFechaFinal"]);
+$data = array(
+    'inicial' => $ini,
+    'final' => $fin
+);
 
 session_start();
 
@@ -10,7 +16,7 @@ else {
     $url = EndPoints::$apiUrl . EndPoints::$obtenerMensajes . $_SESSION["userId"];
 }
 
-include "shared/curl_opts/get_opt.php";
+include "shared/curl_opts/get_wh_opt.php";
 
 // Obtener el código de respuesta de la petición.
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
