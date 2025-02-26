@@ -29,13 +29,16 @@
       >
         <div class="col-5 p-4 border border-3 rounded">
           <form
-            action="./php/login.php"
+            action="./php/recuperar_contrasena.php"
             class="form"
-            id="formularioLogin"
+            id="formularioRecuCon"
             method="POST"
           >
-            <div class="mb-5 text-center">
-              <h3>Iniciar sesión</h3>
+            <div class="mb-3 text-center">
+                <h3>Recuperar Contraseña</h3>
+            </div>
+            <div class="mb-3 text-center">
+                <p>Si tiene una cuenta con nosotros, ingrese su correo de esta misma para poder cambiar su contraseña.</p>
             </div>
             <div class="mb-3">
               <label for="correo" class="form-label"><b>Correo</b></label>
@@ -47,25 +50,10 @@
                 required
               />
             </div>
-            <div class="mb-3">
-              <label for="contra" class="form-label"><b>Contraseña</b></label>
-              <input
-                type="password"
-                class="form-control"
-                id="contra"
-                name="contra"
-                required
-              />
-            </div>
-            <div class="mb-3 row justify-content-between align-items-center">
-              <div class="col">
-                <a href="./recuperar_contrasena">¿Olvidaste tu Contraseña?</a>
-              </div>
-              <div class="col text-right">
-                <button class="btn btn-primary" id="submitLogin">
-                  Ingresar
+            <div class="mb-3 text-right">
+                <button class="btn btn-primary" id="submitRecuCon">
+                    Enviar
                 </button>
-              </div>
             </div>
           </form>
         </div>
@@ -77,6 +65,6 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 
-    <script src="js/custom_scripts/login.js"></script>
+    <script src="js/custom_scripts/recuperar_contrasena.js"></script>
   </body>
 </html>

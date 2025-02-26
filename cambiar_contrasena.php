@@ -15,6 +15,12 @@
       rel="stylesheet"
     />
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <?php
+    if (!isset($_GET["token"]) || !isset($_GET["userId"])) {
+        header("Location: ./login");
+        exit;
+    }
+    ?>
     <style>
       body {
         background-color: #4e72df60;
@@ -29,43 +35,29 @@
       >
         <div class="col-5 p-4 border border-3 rounded">
           <form
-            action="./php/login.php"
+            action="./php/peticion_cambiar_contra.php"
             class="form"
-            id="formularioLogin"
+            id="editarContraForm"
             method="POST"
           >
-            <div class="mb-5 text-center">
-              <h3>Iniciar sesión</h3>
+            <div class="mb-3 text-center">
+              <h3>Cambiar Contraseña</h3>
+            </div>
+            <div class="mb-3 text-center">
+                <p>La contraseña debe contener mínimo 8 caracteres, una letra en mayúscula y otra en minúscula, un número y un símbolo especial: #?!@$%^&*-</p>
             </div>
             <div class="mb-3">
-              <label for="correo" class="form-label"><b>Correo</b></label>
-              <input
-                type="email"
-                class="form-control"
-                id="correo"
-                name="correo"
-                required
-              />
+              <label for="contra" class="form-label">Contraseña Nueva</label>
+              <input type="password" class="form-control" id="contra" name="contra" required />
             </div>
             <div class="mb-3">
-              <label for="contra" class="form-label"><b>Contraseña</b></label>
-              <input
-                type="password"
-                class="form-control"
-                id="contra"
-                name="contra"
-                required
-              />
+                <label for="conContra" class="form-label">Confirmar Contraseña Nueva</label>
+                <input type="password" class="form-control" id="conContra" name="conContra" required />
             </div>
-            <div class="mb-3 row justify-content-between align-items-center">
-              <div class="col">
-                <a href="./recuperar_contrasena">¿Olvidaste tu Contraseña?</a>
-              </div>
-              <div class="col text-right">
-                <button class="btn btn-primary" id="submitLogin">
-                  Ingresar
+            <div class="mb-3 text-right">
+                <button class="btn btn-primary" id="submitCambiarContra">
+                    Cambiar Contraseña
                 </button>
-              </div>
             </div>
           </form>
         </div>
@@ -77,6 +69,6 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 
-    <script src="js/custom_scripts/login.js"></script>
+    <script src="js/custom_scripts/cambiar_contrasena.js"></script>
   </body>
 </html>

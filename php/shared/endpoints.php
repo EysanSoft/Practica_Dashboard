@@ -1,9 +1,11 @@
 <?php
 class EndPoints {
-    static $apiUrl = "https://1e61-177-229-104-23.ngrok-free.app/";
+    static $apiUrl = "https://f35b-177-229-104-23.ngrok-free.app/";
+    static $webUrl = "http://localhost/Dashboard/";
 
     ### Usuarios ###
     static $iniciarSesion = "autenticar_usuario/iniciar_sesion/"; // POST
+    static $recuperarContra = "autenticar_usuario/recuperar_contrasena/"; // POST
     static $crearUsuario = "usuario/crear_usuario/"; // POST
     static $obtenerUsuarios = "usuario/obtener_usuarios/"; // GET
     static $obtenerUsuario = "usuario/obtener_usuario/"; // GET

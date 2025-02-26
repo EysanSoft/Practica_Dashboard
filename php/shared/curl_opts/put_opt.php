@@ -1,8 +1,15 @@
 <?php
-if(session_status() === PHP_SESSION_NONE) {
-    session_start();
+if (isset($_POST["token"])) {
+    $token = $_POST["token"];
 }
-$token = $_SESSION['token'];
+else {
+    if(session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    if(isset($_SESSION['token'])) {
+        $token = $_SESSION['token'];
+    }
+}
 $json_data = json_encode($data);
 $ch = curl_init($url);
 

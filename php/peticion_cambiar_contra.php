@@ -1,9 +1,14 @@
 <?php
 include "shared/endpoints.php";
-
-session_start();
-
-$userId = $_SESSION['userId'];
+if (isset($_POST["userId"])) {
+    $userId = $_POST["userId"];
+}
+else {
+    session_start();
+    if(isset($_SESSION['userId'])) {
+        $userId = $_SESSION['userId'];
+    }
+}
 $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
 $password = strip_tags($_POST["contra"]);
 $password2 = strip_tags($_POST["conContra"]);
