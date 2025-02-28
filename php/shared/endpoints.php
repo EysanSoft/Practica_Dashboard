@@ -13,6 +13,7 @@ class EndPoints {
     static $obtenerFotoDePerfil = "usuario/obtener_foto_de_perfil/"; // GET
     static $actualizarUsuario = "usuario/actualizar_usuario/"; // PUT
     static $actualizarContra = "usuario/actualizar_contrasena/"; // PUT
+    static $actualizarFotoDePerfil = "usuario/actualizar_foto_de_perfil/"; // PUT
     static $eliminarUsuario = "usuario/eliminar_usuario/"; // DELETE
     ### Fin Usuarios ###
 
