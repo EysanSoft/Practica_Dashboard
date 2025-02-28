@@ -85,3 +85,49 @@
     </div>
 </div>
 <!-- End of Modal Cambiar Contraseña -->
+
+<!-- Modal Cambiar Foto de Perfil -->
+<div
+    class="modal fade"
+    id="cambiarFotoPerfilModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <b>Cambiar Foto de Perfil</b>
+                <button
+                    class="close"
+                    type="button"
+                    data-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mx-3 mt-2 justify-content-center">
+                    <div class="col-12">
+                        <form action="./php/peticion_cambiar_foto_perfil.php" class="form" id="editarFotoPerfilForm" method="POST">
+                            <div class="mb-3">
+                                <div class="row justify-content-center">
+                                    <div class="col-6 mb-2" id="contenedorFotoDePerfil">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="file" class="form-control" id="fotoDePerfil" name="fotoDePerfil" accept=".jpg, .jpeg, .png" required />
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary" id="submitEditarFotoPerfil">Subir Imagen</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Cambiar Foto de Perfil -->

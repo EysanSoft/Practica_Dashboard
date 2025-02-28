@@ -48,7 +48,7 @@ $(document).ready(function () {
             }).then((result) => {
               if (result.isConfirmed) {
                 $("cambiarContraModal").modal("hide");
-                location.reload();
+                location.replace("./index");
               }
             });
           }

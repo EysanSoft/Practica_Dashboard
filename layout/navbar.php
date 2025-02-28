@@ -20,10 +20,10 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                <img
-                    class="img-profile rounded-circle"
-                    src="img/undraw_profile.svg"/>
+                <div id="perfilUsuario">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">...</span>
+                    <img class="img-profile rounded-circle" src="./img/perfil/default.png"/>
+                </div>
             </a>
             <!-- Dropdown - User Information -->
             <div
@@ -33,8 +33,16 @@
                     class="dropdown-item"
                     href="#"
                     data-toggle="modal"
-                    data-target="#cambiarContraModal">
+                    data-target="#cambiarFotoPerfilModal">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Cambiar Foto de Perfil
+                </a>
+                <a 
+                    class="dropdown-item"
+                    href="#"
+                    data-toggle="modal"
+                    data-target="#cambiarContraModal">
+                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                     Cambiar Contraseña
                 </a>
                 <div class="dropdown-divider"></div>

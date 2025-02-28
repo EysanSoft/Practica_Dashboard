@@ -10,3 +10,4 @@
 <script src="js/sb-admin-2.min.js"></script>
 <script src="js/custom_scripts/logout.js"></script>
 <script src="js/custom_scripts/cambiar_contrasena.js"></script>
+<script src="js/custom_scripts/perfil_usuario.js"></script>

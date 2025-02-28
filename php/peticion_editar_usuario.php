@@ -68,20 +68,11 @@ if (empty(trim($name)) !== true && empty(trim($lastName)) !== true && empty(trim
         $response = json_decode($response);
 
         // Validar si se obtuvo una excepción de parte de la API.
-        if (isset($response->errors)) {
+        if (isset($response->error)) {
             $status = false;
-            if (isset($response->errors->Correo[0])) {
-                $message = $response->errors->Correo[0];
+            if (isset($response->exception)) {
+                $message = $response->exception;
             } 
-            elseif (isset($response->errors->Telefono[0])) {
-                $message = $response->errors->Telefono[0];
-            }
-            elseif (isset($response->errors->Nombre[0])) {
-                $message = $response->errors->Nombre[0];
-            }
-            elseif (isset($response->errors->Apellidos[0])) {
-                $message = $response->errors->Apellidos[0];
-            }
             else {
                 $message = "Ha ocurrido un error con el servidor, intentelo más tarde.";
             }
