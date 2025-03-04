@@ -7,7 +7,8 @@ session_start();
 
 // Variables para la consulta en la BD.
 $userId = $_SESSION['userId'];
-$currentImageName = $_POST["imageName"];
+// Guarda la surl en vez del nombre...
+$currentImage = $_POST["imageName"];
 
 // Variables del archivo.
 $tempImage = $_FILES["fotoDePerfil"]["tmp_name"];
@@ -16,18 +17,14 @@ $extImage = $_FILES["fotoDePerfil"]["type"];
 // Variables propias para facilitar las cosas.
 $ext = explode("/", $extImage);
 $ext = $ext[1];
-$currentImageNameOnly = explode(".", $currentImageName);
+$currentImageNameOnly = explode("/", $currentImage);
+$currentImageNameOnly = $currentImageNameOnly[count($currentImageNameOnly) -1];
+$currentImageNameOnly = explode(".", $currentImageNameOnly);
 $currentImageNameOnly = $currentImageNameOnly[0];
-$currentImageRoute = "../img/perfil/$currentImageName";
 $multimedia = new Multimedia();
 
-// Elimina la imagen anterior del directorio local si existe.
-// NOTA: Cuando se logre obtener las imagenes desde cloudinary, se eliminará esto.
-if (strlen($currentImageName) > 0 && file_exists($currentImageRoute)) {
-    unlink($currentImageRoute);
-    // Eliminar la imagen anterior de la BD en Cloudinary.
-    $multimedia -> eliminarImagen($currentImageNameOnly);
-}
+// Eliminar la imagen anterior de la BD en Cloudinary.
+$multimedia -> eliminarImagen($currentImageNameOnly);
 
 // Valida que la extensión sea PNG, JPG o JPEG.
 if ($ext == "png" || $ext == "jpg" || $ext == "jpeg") {
@@ -37,13 +34,21 @@ if ($ext == "png" || $ext == "jpg" || $ext == "jpeg") {
 
     if (move_uploaded_file($tempImage, $ruta)) {
         if (empty(trim($nombreImagen)) !== true) {
-            // Subir la imagen a Cloudinary.
-            $multimedia -> subirImagen($ruta, $randomName);
+            /*
+                Subir la imagen a Cloudinary.
+                Sucio hack para eliminar el encapsulamiento del array object. >:)
+            */
+            $resMul = $multimedia -> subirImagen($ruta, $randomName);
+            $resMul = json_encode($resMul);
+            $resMul = str_replace(':"ArrayObject":private', '', $resMul);
+            $resMul = json_decode($resMul);
+            $imgUrl = $resMul -> secure_url;
             $data = array(
-                'imageUrl' => $nombreImagen,
+                'imageUrl' => $imgUrl,
             );
             $url = EndPoints::$apiUrl . EndPoints::$actualizarFotoDePerfil . $userId;
-        
+
+            unlink($ruta);
             include "shared/curl_opts/put_opt.php";
         
             if (curl_errno($ch)) {

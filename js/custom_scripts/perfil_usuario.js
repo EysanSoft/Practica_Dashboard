@@ -23,10 +23,10 @@ $(document).ready(function () {
       else {
         $("#perfilUsuario").append(`
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">${data[0].nombre} ${data[0].apellidos}</span>
-          <img class="img-profile rounded-circle" src="./img/perfil/${data[0].imageUrl}"/>
+          <img class="img-profile rounded-circle" src="${data[0].imageUrl}"/>
         `);
         $("#contenedorFotoDePerfil").append(
-          `<img src="./img/perfil/${data[0].imageUrl}" class="img-fluid" alt="Foto de perfil."></img>`
+          `<img src="${data[0].imageUrl}" class="img-fluid" alt="Foto de perfil."></img>`
         );
         fotoDePerfil = data[0].imageUrl;
       }
