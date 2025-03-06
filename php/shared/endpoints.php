@@ -1,6 +1,7 @@
 <?php
 class EndPoints {
-    static $apiUrl = "https://localhost:7078/";
+    // static $apiUrl = "https://localhost:7078/";
+    static $apiUrl = "https://bd8f-177-229-104-23.ngrok-free.app/";
     // static $webUrl = "http://www.eysandashboard.com.mialias.net/";
     static $webUrl = "http://localhost/Dashboard/";
 

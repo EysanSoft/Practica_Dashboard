@@ -1,9 +1,12 @@
 <?php
+// header('Access-Control-Allow-Origin: *');
+// include "shared/cors.php";
 include "multimedia.php";
 include "shared/endpoints.php";
 $status = false;
 
 session_start();
+// cors();
 
 // Variables para la consulta en la BD.
 $userId = $_SESSION['userId'];

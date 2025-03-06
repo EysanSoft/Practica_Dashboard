@@ -1,4 +1,5 @@
 <?php
+// header('Access-Control-Allow-Origin: *');
 require_once '../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable('../');
 $dotenv -> load();
@@ -28,6 +29,23 @@ class Multimedia {
                 ]
             ]
         );
+        /*
+        $upload -> unsignedUpload(
+            $url,
+            'user_profile_preset', 
+            [
+                'public_id' => $nombreImagen,
+                'use_filename' => true,
+                'overwrite' => true,
+                'media_metadata' => true,
+                'format' => 'webp',
+                "eager" => [
+                    ["fetch_format" => "jpg", "format" => "webp"],
+                    ["fetch_format" => "png", "format" => "webp"]
+                ]
+            ]
+        );
+        */
         $result = (new AdminApi())->asset($nombreImagen);
 
         return $result;
